@@ -1,0 +1,962 @@
+:root{--green:#024941;--orange:#fb6a07;--brown:#503e32;--light-brown:#8e6846;--dark-sand:#e4bb90;--sand:#edd3bc;--paper:#faf6f2;--line:rgba(80,62,50,.2);--focus-ring:var(--light-brown);--gutter:clamp(24px,5vw,90px);--ease:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:115px}
+body{margin:0;background:var(--paper);color:var(--brown);font:16px/1.65 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+body.menu-open{overflow:hidden}
+::selection{background:var(--brown);color:var(--paper)}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+img{display:block;max-width:100%}
+svg{display:block}
+figure{margin:0}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-weight:400;line-height:1.03;letter-spacing:-.06em}
+h2{font-size:clamp(44px,5vw,78px);color:var(--brown)}
+h3{font-size:32px}
+p{margin:0 0 24px}
+address{font-style:normal}
+a,button{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--focus-ring);outline-offset:6px}
+[hidden]{display:none!important}
+.wrap{width:calc(100% - var(--gutter)*2);max-width:1580px;margin-inline:auto}
+.section{padding-block:clamp(80px,8vw,150px)}
+.photo{width:100%;height:100%;object-fit:cover;filter:saturate(.62) sepia(.1)}
+.portrait{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
+.eyebrow i{width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0}
+.button{display:inline-flex;align-items:center;gap:25px;background:var(--brown);color:var(--paper);border:1px solid var(--brown);padding:7px 7px 7px 26px;border-radius:60px;font-size:13px;min-height:57px;line-height:1.3;transition:background .3s,color .3s,transform .5s var(--ease)}
+.button i{display:grid;place-items:center;border:1px solid rgba(237,211,188,.3);border-radius:50%;width:42px;height:42px;flex-shrink:0;overflow:hidden;transition:background .3s}
+.button svg{width:19px;height:19px;transition:transform .5s var(--ease)}
+.button:hover{background:var(--light-brown);transform:translateY(-2px)}
+.button:hover i{background:var(--light-brown);border-color:var(--light-brown)}
+.button:hover svg{transform:rotate(45deg)}
+.button-light{background:var(--sand);color:var(--brown);border-color:var(--sand)}
+.button-light i{border-color:rgba(80,62,50,.22)}
+.button-light:hover{color:var(--sand);background:transparent}
+.text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5;transition:color .3s}
+.text-link svg{width:22px;height:22px;flex-shrink:0;transition:transform .4s var(--ease)}
+.text-link:hover{color:var(--light-brown)}
+.text-link:hover svg{transform:translateX(5px)}
+.skip-link{position:fixed;left:20px;top:-90px;padding:12px 20px;background:var(--sand);color:var(--brown);z-index:200}
+.skip-link:focus{top:16px}
+.site-header{--focus-ring:var(--sand);height:94px;position:sticky;top:0;z-index:50;background:var(--brown);color:var(--sand);border-bottom:1px solid rgba(237,211,188,.16);transition:box-shadow .4s}
+.site-header.scrolled{box-shadow:0 6px 30px rgba(80,62,50,.16)}
+.header-inner{height:100%;display:flex;align-items:center;gap:35px}
+.brand{display:block;width:164px;flex-shrink:0}
+.brand img{width:160px;height:auto}
+.desktop-nav{display:flex;align-items:center;justify-content:center;gap:33px;margin-left:auto;font-size:12px;line-height:1.5}
+.nav-link,.nav-group summary{padding:25px 0;position:relative}
+.nav-link.active:after,.nav-group summary.active:after{content:'';position:absolute;bottom:17px;width:4px;height:4px;border-radius:50%;background:var(--orange);left:0}
+.nav-group summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:17px}
+.nav-group summary::-webkit-details-marker{display:none}
+.nav-group summary>span{font-size:16px;transition:transform .3s}
+.nav-group[open] summary>span{transform:rotate(45deg)}
+.nav-dropdown{position:absolute;top:93px;width:330px;margin-left:-32px;background:var(--paper);color:var(--brown);padding:28px 32px;box-shadow:0 15px 30px rgba(80,62,50,.16);border-bottom:3px solid var(--light-brown)}
+.nav-dropdown .text-link{display:flex;font-size:14px;padding:15px 0}
+.dropdown-label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--light-brown)}
+.header-actions{display:flex;align-items:center;gap:14px;margin-left:15px}
+.icon-button{width:34px;height:34px;display:grid;place-items:center}
+.icon-button svg{width:19px;height:19px}
+.header-contact{border:1px solid rgba(237,211,188,.35);border-radius:40px;display:flex;align-items:center;gap:28px;padding:12px 18px;font-size:12px}
+.header-contact svg{width:18px;height:18px}
+.header-contact:hover{background:var(--sand);color:var(--brown)}
+.menu-toggle{display:none;position:relative;width:34px;height:34px}
+.menu-toggle span{position:absolute;width:23px;height:1px;background:currentColor;left:5px;top:12px;transition:transform .3s,top .3s}
+.menu-toggle span:last-child{top:20px}
+.menu-toggle[aria-expanded=true] span{top:16px;transform:rotate(45deg)}
+.menu-toggle[aria-expanded=true] span:last-child{transform:rotate(-45deg)}
+.mobile-nav{--focus-ring:var(--sand);position:fixed;top:78px;bottom:0;left:0;right:0;background:var(--brown);overflow-y:auto;padding:30px var(--gutter) 50px}
+.mobile-nav>div{border-bottom:1px solid rgba(237,211,188,.18);padding:18px 0}
+.mobile-nav>div>a{display:flex;justify-content:space-between;font-size:30px;line-height:1.2;letter-spacing:-.04em}
+.mobile-nav>div>a svg{width:26px}
+.mobile-sublinks{display:flex;flex-wrap:wrap;gap:12px 25px;margin-top:20px;font-size:13px}
+.mobile-nav>.button{margin-top:30px}
+.home-hero{--focus-ring:var(--sand);position:relative;background:var(--brown);color:var(--sand);min-height:calc(100svh - 94px);overflow:hidden;isolation:isolate}
+.hero-grid{display:grid;grid-template-columns:1.08fr 1fr;align-items:center;min-height:590px;padding-top:55px;padding-bottom:55px;position:relative}
+.home-hero-copy{position:relative;z-index:3;pointer-events:none}
+.home-hero-copy a{pointer-events:auto}
+.home-hero h1{font-size:clamp(90px,8.9vw,160px);line-height:.92;letter-spacing:-.075em;margin-top:42px;white-space:nowrap}
+.home-hero h1>span{color:var(--sand)}
+.hero-intro{font-size:19px;line-height:1.6;margin:30px 0 27px;max-width:430px}
+.hero-actions{display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+.home-hero .text-link{border-color:rgba(237,211,188,.25);font-size:12px}
+.home-hero .text-link:hover{color:var(--dark-sand)}
+.hero-bottom{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:40px;padding-block:28px;border-top:1px solid rgba(237,211,188,.2)}
+.scroll-cue{display:flex;align-items:center;gap:16px;font-size:10px;line-height:1.6}
+.scroll-orbit{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid rgba(237,211,188,.3);font-size:20px}
+.line-mask{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.line-content{display:block;will-change:transform}
+.trust-strip{background:var(--sand);color:var(--brown)}
+.trust-inner{display:grid;grid-template-columns:1fr 1.7fr 1.3fr 1.2fr;align-items:center;gap:35px;padding-block:35px}
+.trust-heading{font-size:17px;line-height:1.3;letter-spacing:-.03em}
+.trust-rating{display:flex;align-items:center;gap:20px;padding-left:35px;border-left:1px solid var(--line)}
+.trust-rating strong{font-size:66px;letter-spacing:-.075em;line-height:1}
+.trust-rating>span{font-size:12px;line-height:1.6}
+.trust-rating small{display:block;font-size:8px;margin-top:5px}
+.trust-rating svg{width:20px;margin-left:auto}
+.trust-item{font-size:12px;line-height:1.8;border-left:1px solid var(--line);padding-left:30px;display:flex;gap:15px;align-items:center}
+.trust-item strong{font-weight:400}
+.trust-item svg{width:20px;flex-shrink:0;margin-left:auto}
+.risk-story{padding-block:80px 0;background:var(--paper);position:relative}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:10%}
+.story-sticky{position:sticky;top:120px;align-self:start;padding-top:20px}
+.story-sticky h2{margin-top:25px;font-size:clamp(47px,5.1vw,78px)}
+.story-sticky h2 span{color:var(--light-brown)}
+.story-chapter{min-height:76svh;display:flex;flex-direction:column;justify-content:center;padding-block:80px;border-bottom:1px solid var(--line)}
+.story-chapter:last-child{border:0}
+.chapter-number{font-size:10px;letter-spacing:.12em;color:var(--light-brown);margin-bottom:26px}
+.story-chapter h3{font-size:clamp(37px,3.7vw,59px);color:var(--brown);line-height:1.08;max-width:600px}
+.story-chapter p{font-size:17px;line-height:1.9;max-width:470px;margin-top:26px}
+.story-chapter .text-link{align-self:flex-start}
+.section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:60px;margin-bottom:60px}
+.section-heading h2{margin-top:27px}
+.section-heading>p{font-size:14px;line-height:1.8;max-width:310px;margin-bottom:4px}
+.section-heading>span{font-size:12px}
+.section-heading>.text-link{align-self:flex-end}
+.solutions-explorer{background:var(--paper)}
+.explorer-grid{display:grid;grid-template-columns:1fr 1fr;gap:7%;align-items:center}
+.explorer-art{position:relative;background:var(--sand);height:520px;border-radius:50% 50% 0 0;overflow:hidden}
+.explorer-note{position:absolute;left:32px;bottom:27px;font-size:10px;color:var(--brown)}
+.solution-row{display:flex;align-items:center;gap:26px;border-top:1px solid var(--line);padding:31px 0;position:relative;transition:padding .45s var(--ease),color .3s}
+.solution-row:last-child{border-bottom:1px solid var(--line)}
+.row-number{font-size:10px;color:var(--light-brown);align-self:flex-start;line-height:1.2;padding-top:10px;flex-shrink:0}
+.solution-row>div{flex:1}
+.solution-row h3{font-size:clamp(27px,2.5vw,39px);color:var(--brown);line-height:1.2}
+.solution-row p{font-size:12px;margin:10px 0 0;color:var(--light-brown)}
+.row-arrow{width:46px;height:46px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;flex-shrink:0;transition:background .3s,color .3s,transform .5s var(--ease)}
+.row-arrow svg{width:22px;height:22px}
+.solution-row:hover,.solution-row:focus-visible,.solution-row.is-active{padding-left:15px}
+.solution-row:hover .row-arrow,.solution-row:focus-visible .row-arrow,.solution-row.is-active .row-arrow{background:var(--brown);color:var(--sand);transform:rotate(45deg)}
+.people-intro{background:var(--dark-sand);padding-block:100px;overflow:hidden}
+.people-intro-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:7%;align-items:center}
+.people-intro h2{margin:30px 0}
+.people-intro p{max-width:410px;font-size:15px;line-height:1.9;margin-bottom:35px}
+.portrait-composition{position:relative;height:520px;isolation:isolate}
+.floating-portrait{position:absolute;width:36%;height:72%;background:var(--paper);padding:8px;box-shadow:0 14px 30px rgba(80,62,50,.12)}
+.floating-portrait .portrait{height:calc(100% - 70px)}
+.floating-portrait figcaption{font-size:12px;padding:10px 6px 0;line-height:1.5;color:var(--brown)}
+.floating-portrait small{display:block;font-size:9px;color:var(--light-brown);margin-top:3px}
+.portrait-0{left:0;top:10%;transform:rotate(-8deg);z-index:1}
+.portrait-1{left:30%;top:0;transform:rotate(3deg);z-index:3}
+.portrait-2{right:0;top:22%;transform:rotate(9deg);z-index:2}
+.values-section{background:var(--sand);color:var(--brown);padding-block:65px 85px;overflow:hidden}
+.values-section .section-heading{margin-bottom:45px}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
+.value-block{border-top:1px solid rgba(80,62,50,.3);padding-top:24px;position:relative}
+.value-block>span{font-size:10px;letter-spacing:.1em}
+.value-block h3{font-size:clamp(32px,3.5vw,53px);color:var(--brown);line-height:1.08;margin-bottom:25px}
+.value-block p{font-size:13px;line-height:1.8;max-width:310px;margin:0;color:var(--brown)}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.news-card{min-width:0}
+.news-image{display:block;height:300px;overflow:hidden;position:relative;background:var(--sand)}
+.news-image .photo{transition:transform 1.1s var(--ease)}
+.news-image:hover .photo{transform:scale(1.06)}
+.image-arrow{position:absolute;right:18px;bottom:18px;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--paper);color:var(--brown);transition:transform .4s}
+.image-arrow svg{width:22px;height:22px}
+.news-image:hover .image-arrow{transform:rotate(45deg)}
+.news-meta{display:flex;justify-content:space-between;gap:15px;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--light-brown);margin-top:23px}
+.news-card h3{font-size:28px;line-height:1.2;color:var(--brown);margin-top:20px;letter-spacing:-.04em}
+.news-card .text-link{font-size:11px;margin-top:22px}
+.rating-visual{--focus-ring:var(--sand);height:100%;background:var(--brown);color:var(--sand);padding:30px;position:relative;overflow:hidden}
+.rating-visual>span{display:block;font-size:10px;position:relative;z-index:1}
+.rating-visual>strong{display:block;font-size:140px;letter-spacing:-.08em;line-height:1.1;font-weight:400;position:relative;z-index:1;margin-block:8px}
+.contact-cta{position:relative;overflow:hidden;background:var(--sand);isolation:isolate}
+.cta-inner{display:grid;grid-template-columns:1.7fr 1fr;gap:80px;align-items:center;padding-block:100px;position:relative;z-index:1}
+.cta-inner h2{font-size:clamp(46px,5.3vw,85px);margin-top:27px}
+.cta-action{max-width:340px;margin-left:auto}
+.cta-action p{font-size:15px;line-height:1.8;margin-bottom:28px}
+.cta-action .button-light{background:var(--brown);color:var(--sand);border-color:var(--brown)}
+.site-footer{--focus-ring:var(--sand);background:var(--brown);color:var(--sand)}
+.footer-statement{padding-block:60px 65px;border-bottom:1px solid rgba(237,211,188,.2);display:flex;justify-content:space-between;align-items:flex-start;gap:80px}
+.footer-statement>span{font-size:10px;letter-spacing:.1em;margin-top:20px}
+.footer-statement>a{font-size:clamp(48px,6vw,90px);line-height:1;letter-spacing:-.065em;display:block;position:relative;padding-right:140px}
+.footer-statement svg{position:absolute;width:90px;height:90px;right:0;top:0;transition:transform .5s var(--ease)}
+.footer-statement>a:hover svg{transform:rotate(45deg)}
+.footer-main{display:grid;grid-template-columns:1.2fr .85fr 1fr 1.4fr;gap:60px;padding-block:65px}
+.footer-brand img{width:170px;height:auto}
+.footer-brand p{font-size:12px;line-height:1.8;margin:25px 0 0}
+.footer-main>div{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-size:12px;line-height:1.8}
+.footer-main a:hover{color:var(--dark-sand)}
+.footer-main svg{display:inline-block;width:13px;height:13px;vertical-align:middle;margin-left:9px}
+.footer-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:15px;color:var(--dark-sand)}
+.footer-main address{margin-bottom:12px;font-size:12px;line-height:1.8}
+.footer-bottom{border-top:1px solid rgba(237,211,188,.2);padding-block:23px;display:flex;justify-content:space-between;gap:25px;font-size:9px}
+.page-hero{--focus-ring:var(--sand);background:var(--brown);color:var(--sand);overflow:hidden;position:relative}
+.breadcrumb{padding-top:26px;display:flex;align-items:center;gap:14px;font-size:9px;letter-spacing:.025em;line-height:1.5}
+.page-hero .breadcrumb{color:var(--sand);opacity:.7}
+.article-page+.breadcrumb{color:var(--brown)}
+.page-hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:center;min-height:620px;padding-top:30px;padding-bottom:50px}
+.page-hero-copy{position:relative;z-index:2}
+.page-hero h1{font-size:clamp(66px,6.8vw,112px);line-height:1;letter-spacing:-.065em;margin-top:35px}
+.page-hero .lead{font-size:17px;line-height:1.8;max-width:500px;margin-top:28px}
+.hero-down{width:43px;height:43px;border:1px solid rgba(237,211,188,.3);display:grid;place-items:center;border-radius:50%;font-size:22px;margin-top:32px}
+.page-art{height:550px;position:relative;min-width:0}
+.art-index{position:absolute;bottom:0;left:25px;font-size:8px;letter-spacing:.16em;opacity:.65}
+.hero-photo-tile{position:absolute;width:160px;height:195px;bottom:28px;right:0;z-index:3;border:6px solid var(--sand);transform:rotate(7deg);box-shadow:0 10px 30px rgba(80,62,50,.2)}
+.hero-photo-tile img{height:100%}
+.hero-photo-tile figcaption{position:absolute;bottom:8px;left:8px;right:8px;font-size:8px;color:var(--paper);background:var(--brown);padding:4px 8px}
+.section-nav{display:flex;flex-wrap:wrap;gap:36px;padding-block:25px;border-bottom:1px solid var(--line);font-size:11px;color:var(--brown)}
+.section-nav svg{display:inline-block;vertical-align:middle;width:15px;height:15px;margin-left:6px}
+.split-content{display:grid;grid-template-columns:1fr 1fr;gap:12%;align-items:start}
+.split-content h2{margin-top:30px}
+.split-content p{font-size:16px;line-height:1.9}
+.split-content .large-copy{font-size:27px;line-height:1.55;letter-spacing:-.025em;color:var(--brown);margin-bottom:35px}
+.sand-section,.strategy-section{background:var(--sand)}
+.strategy-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:10%}
+.strategy-sticky{position:sticky;top:120px;align-self:start}
+.strategy-sticky h2{margin-top:27px}
+.numbered-list article{display:flex;gap:38px;border-top:1px solid var(--line);padding-block:38px}
+.numbered-list article>span{font-size:10px;color:var(--light-brown)}
+.numbered-list h3{font-size:32px;line-height:1.2;color:var(--brown)}
+.numbered-list p{font-size:14px;line-height:1.8;margin-top:20px;margin-bottom:0}
+.leadership-teaser{display:grid;grid-template-columns:1fr 1fr;gap:8%;align-items:center}
+.leadership-teaser h2{margin-top:28px}
+.leadership-teaser p{font-size:15px;max-width:420px;margin-top:25px}
+.teaser-portraits{display:flex;gap:15px;align-items:center}
+.teaser-portraits img{width:calc((100% - 30px)/3);height:280px;background:var(--sand);object-fit:cover}
+.teaser-portraits img:nth-child(2){transform:translateY(-30px)}
+.people-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:55px 30px}
+.board-grid{grid-template-columns:repeat(3,1fr)}
+.person-card{min-width:0}
+.person-image{height:350px;background:var(--sand);position:relative;overflow:hidden}
+.person-image .portrait{transition:transform .9s var(--ease)}
+.person-card:hover .portrait{transform:scale(1.035)}
+.board-grid .person-image{height:380px}
+.profile-image-button{position:absolute;right:15px;bottom:15px;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--paper);color:var(--brown);transition:transform .4s}
+.profile-image-button svg{width:22px}
+.person-card:hover .profile-image-button{transform:rotate(45deg)}
+.person-role{display:block;font-size:10px;color:var(--light-brown);line-height:1.5;margin-top:22px}
+.person-card h3{font-size:25px;line-height:1.2;color:var(--brown);margin-top:10px;letter-spacing:-.045em}
+.person-card>.text-link{font-size:11px;margin-top:12px}
+.business-grid{display:grid;grid-template-columns:1fr 1fr;gap:10%}
+.business-grid article{border-top:1px solid var(--line);padding-top:25px}
+.business-number{font-size:10px}
+.business-grid h3{font-size:42px;margin-block:28px 23px;color:var(--brown)}
+.business-grid p{font-size:16px;line-height:1.85}
+.business-grid .text-link{font-size:13px}
+.solution-detail{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:9%}
+.detail-index{font-size:9px;letter-spacing:.12em;color:var(--light-brown)}
+.solution-body h2{font-size:clamp(40px,4.4vw,66px);line-height:1.12;margin-top:28px}
+.solution-body .large-copy{font-size:18px;line-height:1.85;margin:30px 0 36px}
+.detail-photo{height:550px;overflow:hidden;position:relative}
+.detail-photo figcaption{position:absolute;bottom:20px;left:25px;color:var(--paper);font-size:10px;background:var(--brown);padding:8px 13px}
+.capabilities-section{background:var(--sand)}
+.capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6%}
+.capability-grid article{border-top:1px solid var(--line);padding-top:25px;overflow:hidden}
+.capability-grid article>span{font-size:10px}
+.capability-grid h3{font-size:32px;line-height:1.15;color:var(--brown);margin-top:20px}
+.capability-grid p{font-size:14px;line-height:1.8;min-height:74px;margin-top:20px}
+.capability-grid .text-link{font-size:12px}
+.related-solutions{display:grid;grid-template-columns:1fr 1.4fr;gap:10%;align-items:start}
+.related-solutions h2{margin-top:25px}
+.related-solutions .solution-row h3{font-size:31px}
+.news-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:55px;gap:30px}
+.filter-tabs{display:flex;flex-wrap:wrap;gap:24px}
+.filter-tabs button{font-size:12px;padding-block:8px;border-bottom:2px solid transparent}
+.filter-tabs button.active{border-color:var(--green);color:var(--brown)}
+.news-controls>span{font-size:10px;flex-shrink:0}
+.article-header{padding-block:65px 55px}
+.article-header h1{font-size:clamp(49px,6vw,95px);line-height:1.05;max-width:1200px;margin-top:35px;color:var(--brown);letter-spacing:-.05em}
+.article-meta{display:flex;gap:30px;font-size:11px;color:var(--light-brown);margin-top:35px}
+.article-image{height:600px;overflow:hidden}
+.article-rating{--focus-ring:var(--sand);background:var(--brown);color:var(--sand);height:400px;position:relative;overflow:hidden;display:flex;align-items:center;padding:50px 60px}
+.article-rating>div:first-child{position:relative;z-index:2}
+.article-rating>div>span{font-size:12px}
+.article-rating strong{font-size:205px;line-height:1;font-weight:400;letter-spacing:-.08em;display:block}
+.article-rating p{font-size:17px;margin:12px 0 0}
+.article-content{display:grid;grid-template-columns:1fr 3fr;gap:10%;padding-block:80px 40px}
+.article-content aside{display:flex;flex-direction:column;align-items:flex-start;gap:15px;align-self:start;position:sticky;top:130px}
+.article-content aside .text-link{font-size:11px}
+.copy-status{font-size:11px;line-height:1.6}
+.article-body{max-width:800px}
+.article-body p{font-size:17px;line-height:1.95}
+.article-body .article-lead{font-size:25px;line-height:1.65;letter-spacing:-.025em;color:var(--brown)}
+.article-source{font-size:11px;line-height:1.7;color:var(--light-brown);padding-top:25px;margin-block:40px 25px;border-top:1px solid var(--line)}
+.two-news{grid-template-columns:1fr 1fr;max-width:1100px}
+.listing-note{font-size:12px;line-height:1.8;max-width:750px;margin-bottom:38px}
+.job{border-top:1px solid var(--line)}
+.job:last-child{border-bottom:1px solid var(--line)}
+.job summary{list-style:none;display:flex;align-items:center;gap:35px;cursor:pointer;padding-block:30px}
+.job summary::-webkit-details-marker{display:none}
+.job summary h3{font-size:30px;color:var(--brown);line-height:1.2;flex:1}
+.job-location{font-size:10px;flex-shrink:0}
+.job-plus{font-size:30px;transition:transform .3s}
+.job[open] .job-plus{transform:rotate(45deg)}
+.job-body{padding:5px 65px 35px;max-width:800px}
+.job-body p{font-size:14px;line-height:1.8}
+.job-body p:nth-child(2){font-size:10px;color:var(--light-brown)}
+.career-general{display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:50px;padding:35px;background:var(--paper)}
+.career-general h3{font-size:32px;color:var(--brown)}
+.career-general p{font-size:13px;margin:12px 0 0}
+.career-general>.text-link{flex-shrink:0}
+.contact-section{display:grid;grid-template-columns:1fr 1fr;gap:12%;align-items:start}
+.contact-information h2{margin-top:28px}
+.contact-email{display:inline-flex;align-items:center;gap:20px;font-size:26px;letter-spacing:-.035em;border-bottom:1px solid var(--line);padding-bottom:13px;margin-top:30px;color:var(--brown);max-width:100%;overflow-wrap:anywhere}
+.contact-email svg{width:22px;flex-shrink:0}
+.office-address{margin-block:45px 35px}
+.office-address address{font-size:15px;line-height:1.9;margin:20px 0}
+.office-address .text-link{font-size:12px}
+.contact-city{height:320px;overflow:hidden}
+.contact-form{background:var(--sand);padding:45px}
+.form-index{font-size:9px;letter-spacing:.12em;color:var(--light-brown)}
+.contact-form h2{font-size:46px;margin-block:20px 35px;line-height:1.05}
+.contact-form label{display:block;font-size:11px;line-height:1.5;margin-bottom:24px}
+.contact-form label>span{color:var(--light-brown)}
+.contact-form input,.contact-form select,.contact-form textarea{display:block;width:100%;border:0;border-bottom:1px solid rgba(80,62,50,.4);border-radius:0;background:transparent;padding:12px 0;font-size:15px;min-height:44px}
+.contact-form textarea{resize:vertical}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{outline:0;border-color:var(--green);box-shadow:0 1px 0 var(--green)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.form-note{font-size:10px;line-height:1.8;margin-top:10px}
+.form-status{font-size:12px;line-height:1.8;margin:20px 0 0}
+.prepared-email{padding-top:20px;margin-top:20px;border-top:1px solid var(--line)}
+.prepared-email .text-link{display:flex;width:max-content;max-width:100%;font-size:12px}
+.not-found{padding-block:100px;min-height:650px}
+.not-found h1{font-size:clamp(50px,6vw,95px);color:var(--brown);margin-block:35px}
+.not-found p{font-size:18px}
+.not-found .text-link{margin-left:20px}
+dialog{border:0;background:var(--paper);color:var(--brown);padding:0;box-shadow:0 25px 80px rgba(80,62,50,.22);max-width:calc(100% - 40px);max-height:calc(100% - 50px)}
+dialog::backdrop{background:rgba(80,62,50,.72);backdrop-filter:blur(7px)}
+dialog[open]{animation:dialog-in .4s var(--ease)}
+@keyframes dialog-in{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}.search-dialog{width:780px;padding:40px;margin:10vh auto auto}
+.dialog-top{display:flex;align-items:center;justify-content:space-between}
+.dialog-close{font-size:30px}
+.search-field{display:flex;align-items:center;gap:20px;border-bottom:1px solid var(--line);padding-block:30px 20px}
+.search-field svg{width:24px;height:24px;flex-shrink:0}
+.search-field input{width:100%;font-size:30px;letter-spacing:-.04em;color:var(--brown);border:0;outline:0;background:none;min-width:0}
+.search-field:focus-within{border-color:var(--brown)}
+.search-status{font-size:11px;margin-block:20px;color:var(--light-brown)}
+.search-results{max-height:48vh;overflow-y:auto}
+.search-result{display:block;padding:20px 0;border-top:1px solid var(--line)}
+.search-result h3{font-size:24px;display:flex;justify-content:space-between;gap:20px;color:var(--brown)}
+.search-result p{font-size:12px;line-height:1.7;margin:10px 0 0}
+.profile-dialog{width:1050px}
+.profile-dialog>.dialog-close{position:absolute;top:15px;right:15px;z-index:2;background:var(--paper);border-radius:50%}
+.profile-layout{display:grid;grid-template-columns:.85fr 1.2fr}
+.profile-layout>div:first-child{background:var(--sand);min-height:450px}
+.profile-layout>div:last-child{padding:65px 45px 45px}
+.profile-layout h2{font-size:41px;line-height:1.15;margin-top:22px}
+.profile-layout p{font-size:14px;line-height:1.85;margin:27px 0 0}
+
+@media(min-width:1700px){.hero-grid{min-height:710px}
+}
+@media(max-width:1200px){.desktop-nav{gap:20px}
+.header-inner{gap:22px}
+.header-actions{gap:8px;margin-left:0}
+.header-contact{gap:15px}
+.hero-grid{min-height:580px}
+.home-hero h1{font-size:9.6vw}
+.hero-actions{gap:20px}
+.hero-intro{font-size:17px}
+.trust-inner{gap:25px}
+.trust-rating{padding-left:25px;gap:15px}
+.trust-item{padding-left:20px;font-size:11px}
+.story-grid{gap:8%}
+.story-chapter p{font-size:15px}
+.explorer-art{height:470px}
+.solution-row{gap:20px}
+.solution-row h3{font-size:30px}
+.people-intro-grid{gap:5%}
+.portrait-composition{height:450px}
+.floating-portrait figcaption{font-size:10px}
+.floating-portrait small{font-size:8px}
+.news-grid{gap:28px}
+.news-image{height:260px}
+.news-card h3{font-size:25px}
+.footer-main{gap:35px}
+.page-hero h1{font-size:7.5vw}
+.page-hero-grid{min-height:580px;gap:30px}
+.page-art{height:470px}
+.page-hero .lead{font-size:16px}
+.person-image{height:300px}
+.board-grid .person-image{height:330px}
+.detail-photo{height:470px}
+.contact-section{gap:7%}
+.contact-form{padding:35px}
+.contact-email{font-size:23px}
+.article-image{height:510px}
+}
+@media(max-width:950px){.site-header{--focus-ring:var(--sand);height:78px}
+.desktop-nav{display:none}
+.header-actions{margin-left:auto;gap:12px}
+.menu-toggle{display:block}
+.brand{width:148px}
+.brand img{width:144px}
+.hero-grid{min-height:540px}
+.home-hero h1{font-size:10.1vw}
+.hero-intro{font-size:17px;max-width:350px}
+.hero-actions{gap:16px}
+.hero-actions .text-link{font-size:10px}
+.hero-bottom{padding-block:25px}
+.trust-inner{grid-template-columns:1fr 1.7fr 1.3fr;gap:20px}
+.trust-item:last-child{display:none}
+.trust-rating strong{font-size:54px}
+.trust-rating>span{font-size:11px}
+.trust-rating small{font-size:7px}
+.trust-rating svg{display:none}
+.trust-heading{font-size:15px}
+.story-sticky{top:100px}
+.story-sticky h2{font-size:48px}
+.story-chapter{min-height:70svh}
+.story-chapter h3{font-size:40px}
+.story-chapter p{font-size:14px}
+.section-heading{gap:35px;margin-bottom:42px}
+.section-heading h2{font-size:55px}
+.explorer-grid{gap:5%}
+.explorer-art{height:440px}
+.solution-row h3{font-size:27px}
+.solution-row p{font-size:10px}
+.solution-row{gap:15px;padding-block:26px}
+.row-arrow{width:38px;height:38px}
+.explorer-note{left:22px;font-size:8px}
+.people-intro{padding-block:80px}
+.people-intro-grid{grid-template-columns:1fr 1.1fr;gap:4%}
+.people-intro h2{font-size:49px}
+.portrait-composition{height:400px}
+.floating-portrait{width:38%;padding:5px}
+.floating-portrait .portrait{height:calc(100% - 75px)}
+.floating-portrait figcaption{font-size:10px;padding:10px 3px 0}
+.values-grid{gap:35px}
+.value-block h3{font-size:35px}
+.value-block p{font-size:12px}
+.news-image{height:220px}
+.news-meta{flex-direction:column;gap:5px;font-size:8px}
+.news-card h3{font-size:23px}
+.rating-visual>strong{font-size:108px}
+.rating-visual{--focus-ring:var(--sand);padding:25px}
+.cta-inner{gap:45px;padding-block:75px}
+.cta-inner h2{font-size:56px}
+.cta-action p{font-size:13px}
+.footer-main{grid-template-columns:1fr 1fr 1fr;gap:40px}
+.footer-main>div:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.4fr 1.3fr;gap:20px}
+.footer-main>div:last-child .footer-label{grid-column:1/-1}
+.footer-main>div:last-child address{margin:0}
+.footer-statement{gap:40px}
+.footer-statement>a{font-size:65px;padding-right:100px}
+.footer-statement svg{width:65px;height:65px}
+.page-hero h1{font-size:65px}
+.page-hero-grid{min-height:530px;gap:20px}
+.page-hero .lead{font-size:15px}
+.page-art{height:450px}
+.hero-photo-tile{width:125px;height:160px}
+.split-content{gap:8%}
+.split-content h2{font-size:48px}
+.split-content .large-copy{font-size:23px}
+.split-content p{font-size:14px}
+.strategy-grid{gap:8%}
+.strategy-sticky h2{font-size:47px}
+.numbered-list h3{font-size:27px}
+.numbered-list article{gap:25px}
+.leadership-teaser h2{font-size:47px}
+.teaser-portraits img{height:230px}
+.people-grid{grid-template-columns:1fr 1fr;gap:40px 25px}
+.board-grid{grid-template-columns:repeat(3,1fr)}
+.person-image{height:370px}
+.board-grid .person-image{height:260px}
+.board-grid .person-card h3{font-size:22px}
+.business-grid h3{font-size:36px}
+.business-grid p{font-size:14px}
+.solution-detail{gap:7%}
+.solution-body h2{font-size:44px}
+.solution-body .large-copy{font-size:16px}
+.detail-photo{height:420px}
+.capability-grid{gap:35px}
+.capability-grid h3{font-size:27px}
+.capability-grid p{font-size:13px;min-height:100px}
+.related-solutions{gap:7%}
+.related-solutions h2{font-size:47px}
+.related-solutions .solution-row h3{font-size:25px}
+.article-header h1{font-size:65px}
+.article-image{height:420px}
+.article-content{gap:7%}
+.article-body p{font-size:16px}
+.article-body .article-lead{font-size:23px}
+.job summary h3{font-size:25px}
+.job summary{gap:22px}
+.contact-section{gap:6%}
+.contact-email{font-size:20px;gap:10px}
+.contact-form{padding:28px}
+.contact-form h2{font-size:39px}
+.contact-information h2{font-size:52px}
+.form-grid{gap:18px}
+.profile-layout>div:last-child{padding:55px 30px 35px}
+.profile-layout h2{font-size:34px}
+.profile-layout p{font-size:13px}
+}
+@media(max-width:700px){:root{--focus-ring:var(--light-brown);--gutter:24px}
+html{scroll-padding-top:95px}
+.header-inner{gap:10px}
+.brand{width:132px}
+.brand img{width:128px}
+.header-actions{gap:5px}
+.header-contact{display:none}
+.icon-button{width:30px}
+.home-hero{--focus-ring:var(--sand);min-height:0}
+.hero-grid{display:block;padding-top:40px;padding-bottom:0;min-height:690px}
+.home-hero-copy{pointer-events:auto}
+.home-hero h1{font-size:clamp(63px,13.5vw,96px);margin-top:29px;white-space:normal;line-height:.96}
+.hero-intro{font-size:16px;line-height:1.65;margin-top:23px;max-width:330px}
+.hero-actions{gap:15px;flex-wrap:wrap}
+.hero-actions .button{font-size:11px;padding-left:21px;gap:15px;min-height:50px}
+.hero-actions .button i{width:36px;height:36px}
+.hero-actions .text-link{font-size:10px;gap:15px}
+.hero-bottom{gap:20px;padding-block:22px}
+.scroll-cue{font-size:8px;gap:10px}
+.scroll-orbit{width:36px;height:36px;font-size:17px}
+.trust-inner{grid-template-columns:1fr 1fr;gap:24px 20px;padding-block:28px}
+.trust-heading{grid-column:1/-1;font-size:16px}
+.trust-heading br{display:none}
+.trust-rating{border:0;padding-left:0;gap:12px}
+.trust-rating strong{font-size:52px}
+.trust-rating>span{font-size:10px}
+.trust-rating small{font-size:7px}
+.trust-item{font-size:10px;padding-left:20px}
+.trust-item svg{display:none}
+.section{padding-block:70px}
+.risk-story{padding-top:60px}
+.story-grid{display:block}
+.story-sticky{position:relative;top:auto;padding-top:0}
+.story-sticky h2{font-size:47px;margin-top:24px}
+.story-chapter{min-height:0;padding-block:45px;display:block}
+.story-chapter h3{font-size:36px}
+.story-chapter p{font-size:15px;margin-top:22px;line-height:1.85}
+.chapter-number{display:block;font-size:9px;margin-bottom:24px}
+.story-chapter:last-child{padding-bottom:65px}
+.section-heading{display:block;margin-bottom:38px}
+.section-heading h2{font-size:clamp(40px,9.5vw,58px);margin-top:23px}
+.section-heading>p{font-size:13px;margin:25px 0 0}
+.section-heading>.text-link{margin-top:22px;font-size:12px}
+.section-heading>span{display:block;font-size:11px;margin-top:16px}
+.explorer-grid{display:block}
+.explorer-art{height:400px;margin-bottom:25px;border-radius:48% 48% 0 0}
+.solution-row{gap:18px;padding-block:25px}
+.solution-row h3{font-size:27px;line-height:1.2}
+.solution-row p{font-size:11px;line-height:1.6;max-width:220px}
+.row-number{padding-top:7px;font-size:9px}
+.row-arrow{width:39px;height:39px}
+.solution-row.is-active{padding-left:8px}
+.people-intro{padding-block:65px 45px}
+.people-intro-grid{display:block}
+.people-intro h2{font-size:47px;margin-block:25px}
+.people-intro p{font-size:14px;line-height:1.85;margin-bottom:30px}
+.portrait-composition{height:380px;margin-top:50px;margin-inline:-5px}
+.floating-portrait{width:38%;height:75%}
+.floating-portrait figcaption{font-size:10px}
+.floating-portrait small{font-size:8px;line-height:1.4}
+.portrait-0{left:0;top:12%}
+.portrait-1{left:30%;top:0}
+.portrait-2{right:0;top:19%}
+.values-section{padding-block:40px 25px}
+.values-section .section-heading{margin-bottom:25px}
+.values-grid{display:block}
+.value-block{display:grid;grid-template-columns:35px 1fr 65px;column-gap:15px;align-items:start;padding-block:30px}
+.value-block>span{grid-column:1;grid-row:1;align-self:start;padding-top:5px}
+.value-block h3{grid-column:2;grid-row:1;font-size:31px;line-height:1.1;margin:0}
+.value-block p{grid-column:2/4;grid-row:2;margin-top:20px;font-size:12px;max-width:280px}
+.news-grid{grid-template-columns:1fr;gap:42px}
+.news-image{height:300px}
+.news-meta{flex-direction:row;font-size:8px;margin-top:20px;gap:15px}
+.news-card h3{font-size:28px;margin-top:16px;max-width:440px}
+.news-card .text-link{margin-top:15px}
+.rating-visual{--focus-ring:var(--sand);padding:30px}
+.rating-visual>strong{font-size:150px}
+.rating-visual>span{font-size:11px}
+.cta-inner{grid-template-columns:1fr;gap:30px;padding-block:65px}
+.cta-inner h2{font-size:45px;margin-top:25px}
+.cta-action{max-width:320px;margin-left:0}
+.cta-action p{font-size:14px;margin-bottom:24px}
+.footer-statement{display:block;padding-block:45px}
+.footer-statement>span{display:block;font-size:9px;margin:0 0 25px}
+.footer-statement>a{font-size:clamp(46px,10vw,67px);padding-right:55px}
+.footer-statement svg{width:43px;height:43px;top:3px}
+.footer-main{grid-template-columns:1fr 1fr;gap:35px 25px;padding-block:45px}
+.footer-brand{grid-column:1/-1}
+.footer-brand img{width:150px}
+.footer-brand p{font-size:11px;margin-top:15px}
+.footer-main>div{font-size:11px}
+.footer-main>div:last-child{display:flex;gap:8px}
+.footer-label{font-size:9px;margin-bottom:12px}
+.footer-main address{font-size:11px;margin-bottom:10px}
+.footer-bottom{font-size:8px;gap:16px;padding-block:20px}
+.footer-bottom>span:nth-child(2){display:none}
+.breadcrumb{padding-top:20px;font-size:8px;gap:10px;flex-wrap:wrap}
+.page-hero-grid{display:block;min-height:0;padding-top:34px;padding-bottom:20px}
+.page-hero h1{font-size:clamp(47px,10.4vw,73px);margin-top:27px;line-height:1.04}
+.page-hero .lead{font-size:15px;line-height:1.75;max-width:410px;margin-top:24px}
+.hero-down{display:none}
+.page-art{height:340px;margin-top:5px}
+.hero-photo-tile{width:110px;height:130px;right:0;bottom:30px;border-width:4px}
+.hero-photo-tile figcaption{font-size:6px;left:4px;right:4px;padding:3px 4px}
+.art-index{left:0;bottom:3px;font-size:7px}
+.section-nav{gap:15px 25px;font-size:10px;padding-block:21px}
+.split-content{grid-template-columns:1fr;gap:30px}
+.split-content h2{font-size:43px;margin-top:24px}
+.split-content p{font-size:15px;line-height:1.85}
+.split-content .large-copy{font-size:23px;line-height:1.55;margin-bottom:25px}
+.strategy-grid{display:block}
+.strategy-sticky{position:static}
+.strategy-sticky h2{font-size:43px;margin-top:24px}
+.numbered-list article{gap:25px;padding-block:28px}
+.numbered-list h3{font-size:26px}
+.numbered-list p{font-size:14px;line-height:1.8;margin-top:16px}
+.leadership-teaser{display:block}
+.leadership-teaser h2{font-size:43px;margin-top:25px}
+.leadership-teaser p{font-size:14px;margin-top:25px}
+.teaser-portraits{margin-top:60px;gap:10px}
+.teaser-portraits img{width:calc((100% - 20px)/3);height:230px}
+.people-grid,.board-grid{grid-template-columns:1fr 1fr;gap:35px 20px}
+.person-image,.board-grid .person-image{height:260px}
+.person-role{font-size:9px;margin-top:18px}
+.person-card h3,.board-grid .person-card h3{font-size:21px;line-height:1.2;margin-top:8px}
+.person-card>.text-link{font-size:10px;gap:13px;margin-top:8px}
+.person-card>.text-link svg{width:18px}
+.profile-image-button{width:32px;height:32px;bottom:10px;right:10px}
+.profile-image-button svg{width:18px}
+.business-grid{grid-template-columns:1fr;gap:40px}
+.business-grid h3{font-size:34px;margin-block:24px 20px}
+.business-grid p{font-size:15px}
+.solution-detail{grid-template-columns:1fr;gap:40px}
+.solution-body h2{font-size:44px;margin-top:25px}
+.solution-body .large-copy{font-size:16px;line-height:1.85;margin-block:25px 30px}
+.detail-photo{height:420px}
+.detail-photo figcaption{left:18px;bottom:18px;font-size:9px}
+.capability-grid{grid-template-columns:1fr;gap:35px}
+.capability-grid article{position:relative;min-height:250px}
+.capability-grid h3{font-size:31px;margin-top:28px;max-width:70%}
+.capability-grid p{font-size:14px;min-height:0;max-width:320px;line-height:1.85;margin-top:22px}
+.related-solutions{grid-template-columns:1fr;gap:35px}
+.related-solutions h2{font-size:43px;margin-top:25px}
+.related-solutions .solution-row h3{font-size:24px}
+.news-controls{display:block;margin-bottom:40px}
+.filter-tabs{gap:15px 23px}
+.filter-tabs button{font-size:11px}
+.news-controls>span{display:block;font-size:10px;margin-top:23px}
+.article-header{padding-block:40px 35px}
+.article-header h1{font-size:clamp(42px,9.2vw,60px);margin-top:27px;line-height:1.1}
+.article-meta{font-size:9px;gap:20px;margin-top:27px}
+.article-image{height:350px}
+.article-rating{--focus-ring:var(--sand);height:320px;padding:35px}
+.article-rating strong{font-size:155px}
+.article-rating>div>span{font-size:10px}
+.article-rating p{font-size:14px}
+.article-content{grid-template-columns:1fr;gap:35px;padding-block:40px}
+.article-content aside{position:static;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.article-content aside>.eyebrow{width:100%}
+.article-body p{font-size:16px;line-height:1.9}
+.article-body .article-lead{font-size:22px}
+.two-news{grid-template-columns:1fr}
+.job summary{flex-wrap:wrap;gap:12px;padding-block:25px}
+.job summary h3{font-size:23px;max-width:calc(100% - 75px);flex:1}
+.job-location{order:3;width:calc(100% - 31px);margin-left:31px;font-size:10px}
+.job-plus{margin-left:auto;font-size:26px}
+.job-body{padding:0 0 30px 31px}
+.job-body p{font-size:14px}
+.job-body .button{font-size:12px}
+.career-general{padding:28px;display:block}
+.career-general h3{font-size:29px}
+.career-general .text-link{margin-top:22px;font-size:12px}
+.listing-note{font-size:11px;line-height:1.85}
+.contact-section{grid-template-columns:1fr;gap:45px}
+.contact-information h2{font-size:46px;margin-top:25px}
+.contact-email{font-size:23px;margin-top:28px;gap:15px}
+.office-address{margin-block:35px 30px}
+.office-address address{font-size:14px}
+.contact-city{height:280px}
+.contact-form{padding:30px 25px}
+.contact-form h2{font-size:41px;margin-block:22px 30px}
+.contact-form input,.contact-form select,.contact-form textarea{font-size:16px}
+.form-grid{gap:18px}
+.form-note{font-size:10px}
+.search-dialog{padding:25px;max-width:calc(100% - 24px);margin-top:7vh}
+.search-field input{font-size:22px}
+.search-field svg{width:20px}
+.search-result h3{font-size:21px}
+.profile-dialog{max-width:calc(100% - 24px);max-height:calc(100% - 30px)}
+.profile-layout{grid-template-columns:1fr}
+.profile-layout>div:first-child{min-height:0;height:310px}
+.profile-layout>div:last-child{padding:30px}
+.profile-layout h2{font-size:32px}
+.profile-layout p{font-size:13px;line-height:1.85}
+.not-found{min-height:550px;padding-block:80px}
+.not-found h1{font-size:52px}
+.not-found .text-link{display:flex;width:max-content;margin:20px 0 0}
+}
+@media(max-width:380px){:root{--focus-ring:var(--light-brown);--gutter:20px}
+.hero-grid{min-height:670px}
+.home-hero h1{font-size:62px}
+.hero-actions{gap:12px}
+.hero-actions .button{font-size:10px;padding-left:16px;gap:10px}
+.hero-actions .text-link{font-size:9px;gap:9px}
+.scroll-cue{font-size:8px;gap:8px}
+.hero-bottom{gap:10px}
+.trust-inner{gap:20px 15px}
+.trust-rating strong{font-size:47px}
+.trust-rating{gap:8px}
+.trust-rating small{font-size:6px}
+.trust-item{padding-left:15px;font-size:9px}
+.story-sticky h2{font-size:41px}
+.story-chapter h3{font-size:33px}
+.explorer-art{height:350px}
+.solution-row h3{font-size:24px}
+.solution-row{gap:14px}
+.row-arrow{width:34px;height:34px}
+.people-intro h2{font-size:42px}
+.portrait-composition{height:335px}
+.floating-portrait figcaption{font-size:9px}
+.floating-portrait small{font-size:7px}
+.value-block{grid-template-columns:25px 1fr 45px;column-gap:12px}
+.value-block h3{font-size:28px}
+.news-image{height:260px}
+.news-card h3{font-size:26px}
+.page-hero h1{font-size:46px}
+.page-art{height:310px}
+.person-image,.board-grid .person-image{height:215px}
+.people-grid,.board-grid{gap:30px 15px}
+.person-card h3,.board-grid .person-card h3{font-size:19px}
+.teaser-portraits img{height:185px}
+.contact-email{font-size:21px}
+.form-grid{grid-template-columns:1fr;gap:0}
+.contact-form{padding:28px 22px}
+.contact-form h2{font-size:37px}
+.footer-statement>a{font-size:44px}
+.detail-photo{height:330px}
+.article-header h1{font-size:39px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}
+*,*:before,*:after{animation:none!important;transition:none!important}
+.line-content{transform:none!important;opacity:1!important}
+.floating-portrait{will-change:auto}
+}.story-sticky h2 .line-mask,.story-sticky h2 .line-content{color:var(--brown)}
+.story-sticky h2 .line-content>span{color:var(--light-brown)}
+
+@media(max-width:380px){.header-inner{gap:6px}
+.brand{width:120px}
+.brand img{width:116px}
+.header-actions{gap:3px}
+.icon-button{width:24px}
+.menu-toggle{width:28px}
+.menu-toggle span{width:20px;left:4px}
+.home-hero h1{font-size:clamp(47px,16.1vw,62px)}
+}.split-content>*{min-width:0}
+
+@media(max-width:700px){.hero-grid{min-height:0}
+}
+@media(max-width:380px){.split-content h2{font-size:38px}
+}.profile-layout .portrait{object-fit:contain;object-position:center}
+
+
+/* Flat motion artwork extracted from Brand Manual pages 39 and 40. */
+.brand-pattern,.brand-line{position:absolute;inset:0;background:currentColor;color:var(--light-brown);pointer-events:none;mask-repeat:no-repeat;-webkit-mask-repeat:no-repeat;mask-size:cover;-webkit-mask-size:cover;mask-position:center;-webkit-mask-position:center}
+.brand-pattern{mask-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%203840%202160%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M1920.00%20771.21L1934.35%20771.11L1937.86%20772.83L1941.23%20776.93L2281.99%201289.23L2327.29%201359.09L2327.81%201385.33L2325.13%201388.42L2300.60%201388.65L1514.49%201388.62L1509.21%201386.81L1509.44%201360.52L1511.49%201355.40L1848.87%20847.37L1898.58%20773.27L1902.07%20771.24Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20655.95L1938.34%20656.77L1952.01%20658.71L1974.44%20664.08L1987.56%20668.83L2012.67%20682.00L2028.21%20693.91L2038.98%20704.79L2048.75%20717.75L2418.66%201274.42L2426.30%201289.62L2431.74%201304.86L2435.91%201325.07L2437.34%201345.12L2436.30%201364.83L2432.03%201388.88L2426.15%201407.35L2418.47%201425.12L2408.77%201441.89L2394.07%201461.25L2372.14%201481.26L2359.12%201489.47L2339.58%201498.18L2328.69%201501.30L2310.45%201503.86L1529.44%201503.95L1505.08%201500.38L1489.12%201495.05L1479.53%201490.42L1466.49%201482.17L1454.47%201472.89L1437.77%201454.83L1419.18%201426.27L1408.12%201399.28L1400.71%201365.89L1400.11%201336.00L1403.76%201310.71L1412.63%201285.23L1424.71%201264.88L1796.95%20706.21L1815.14%20688.68L1827.00%20680.24L1847.97%20669.49L1865.48%20663.30L1883.43%20659.06L1897.07%20656.92Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20540.60L1953.52%20542.37L1970.16%20544.70L2002.97%20551.76L2034.83%20562.41L2060.32%20574.21L2084.67%20588.21L2111.81%20608.74L2136.41%20632.62L2157.70%20660.43L2173.14%20685.19L2500.63%201176.93L2510.72%201192.31L2522.07%201213.55L2532.83%201241.01L2539.23%201263.52L2543.79%201286.39L2545.89%201303.66L2546.97%201332.52L2545.23%201361.28L2542.78%201378.36L2539.54%201395.32L2533.61%201417.54L2521.84%201449.96L2503.52%201485.76L2480.54%201518.81L2457.71%201544.69L2431.54%201567.48L2407.46%201583.83L2381.38%201597.43L2353.64%201608.14L2318.14%201616.49L2280.59%201619.43L1553.06%201619.31L1521.57%201616.81L1503.43%201613.37L1474.23%201605.02L1452.28%201595.80L1441.61%201590.58L1416.57%201575.32L1393.48%201557.56L1368.70%201533.22L1346.95%201506.22L1334.30%201486.90L1323.16%201466.68L1311.38%201440.34L1305.39%201424.10L1299.04%201401.89L1294.37%201379.26L1291.52%201356.29L1290.23%201327.39L1291.85%201298.42L1295.28%201275.37L1300.57%201252.58L1312.78%201219.14L1320.45%201202.94L1329.66%201187.15L1580.18%20811.15L1681.11%20657.80L1695.18%20639.23L1718.99%20614.35L1740.92%20596.24L1764.52%20580.82L1789.45%20567.81L1815.51%20557.58L1853.29%20547.30L1892.04%20541.66Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20425.34L1972.69%20428.51L2011.75%20434.78L2062.53%20448.73L2093.17%20460.71L2117.01%20471.61L2145.64%20487.54L2162.10%20498.32L2188.41%20517.66L2203.35%20530.34L2226.67%20553.23L2244.05%20572.54L2263.53%20598.81L2330.60%20701.24L2599.37%201104.60L2615.25%201133.38L2623.44%201151.29L2637.36%201188.26L2646.08%201220.05L2653.96%201265.62L2656.40%201305.23L2655.64%201338.37L2653.32%201364.84L2650.31%201384.53L2642.02%201423.58L2629.72%201461.57L2611.57%201504.48L2588.83%201545.15L2573.95%201567.20L2553.51%201593.40L2521.75%201627.27L2496.91%201649.17L2475.64%201665.01L2436.29%201689.36L2412.57%201701.06L2388.06%201711.05L2369.33%201717.50L2343.84%201724.50L2324.47%201728.61L2298.19%201732.26L2265.24%201734.51L1574.68%201734.63L1548.23%201733.17L1515.19%201729.07L1482.72%201722.00L1451.25%201711.83L1420.44%201699.31L1396.75%201687.29L1374.01%201673.61L1341.64%201650.34L1316.55%201628.53L1284.65%201594.60L1256.37%201557.46L1235.45%201523.30L1220.44%201493.46L1203.17%201450.01L1192.19%201411.48L1184.80%201372.14L1181.05%201332.34L1181.10%201292.43L1184.77%201252.79L1191.00%201220.21L1204.03%201175.75L1221.98%201133.19L1238.08%201104.31L1523.92%20675.04L1575.11%20596.48L1586.70%20580.70L1612.26%20551.05L1630.92%20532.72L1645.76%20519.93L1677.32%20496.70L1716.80%20473.37L1758.72%20454.50L1802.55%20440.45L1847.67%20430.81L1887.01%20426.48Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20310.15L1950.43%20310.72L1988.29%20314.26L2033.31%20321.32L2055.54%20326.23L2084.81%20334.15L2127.76%20348.73L2175.92%20370.32L2195.84%20380.89L2228.00%20400.09L2276.00%20435.64L2303.77%20460.24L2324.53%20481.33L2348.55%20509.31L2366.39%20532.50L2405.47%20593.07L2692.91%201024.75L2713.52%201063.41L2730.95%201103.91L2742.88%201138.87L2755.68%201189.29L2760.59%201218.70L2764.05%201248.43L2765.91%201285.86L2764.36%201338.49L2760.33%201376.01L2750.05%201427.87L2737.84%201471.61L2724.65%201507.10L2712.44%201534.82L2695.53%201568.66L2680.15%201594.73L2659.27%201626.20L2640.89%201650.15L2616.39%201678.73L2590.14%201705.57L2573.55%201720.74L2538.83%201749.05L2508.01%201770.01L2488.93%201781.53L2462.95%201795.70L2429.24%201810.85L2394.87%201823.75L2359.87%201834.13L2310.00%201844.09L2274.20%201848.15L2245.65%201849.69L1594.30%201849.78L1558.45%201847.89L1522.58%201843.41L1486.85%201836.42L1451.57%201826.74L1403.20%201808.93L1376.23%201796.62L1350.05%201782.61L1312.15%201758.83L1282.18%201736.45L1264.90%201722.02L1232.12%201691.00L1196.90%201651.59L1161.72%201602.32L1142.38%201569.71L1131.80%201549.55L1112.94%201508.07L1104.74%201486.81L1093.09%201450.68L1085.38%201421.32L1079.50%201391.56L1072.79%201339.02L1071.11%201308.87L1071.09%201286.23L1072.39%201256.16L1076.38%201218.83L1083.03%201182.00L1096.51%201131.63L1106.29%201103.65L1114.77%201083.13L1127.04%201056.41L1144.61%201024.25L1436.78%20585.27L1455.63%20554.43L1490.10%20507.19L1524.75%20468.96L1551.87%20443.64L1574.78%20424.49L1598.92%20406.84L1630.56%20386.78L1656.92%20372.31L1704.99%20350.62L1755.04%20333.35L1776.96%20327.23L1806.63%20320.86L1836.59%20315.73L1874.39%20311.77Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20194.70L1963.05%20196.08L2014.45%20201.10L2048.41%20206.61L2082.05%20213.61L2123.48%20224.69L2164.07%20238.24L2203.64%20254.27L2242.05%20272.55L2286.34%20297.57L2314.56%20316.21L2348.37%20341.28L2367.77%20357.31L2386.50%20373.99L2421.84%20409.24L2454.20%20446.74L2469.07%20466.44L2492.22%20500.05L2522.04%20547.58L2784.65%20942.21L2796.62%20963.43L2814.74%20999.96L2833.74%201045.44L2851.49%201100.51L2861.30%201140.90L2869.88%201190.29L2874.65%201240.39L2875.65%201290.88L2872.70%201341.43L2869.96%201366.65L2863.18%201408.44L2851.80%201458.01L2839.58%201498.64L2821.66%201546.29L2804.13%201584.92L2780.26%201629.82L2757.79%201665.70L2733.44%201700.22L2707.02%201733.08L2684.65%201758.21L2660.95%201782.01L2623.51%201815.44L2597.30%201836.06L2563.26%201859.86L2527.92%201881.33L2498.90%201896.88L2461.64%201913.98L2423.73%201928.81L2369.55%201945.19L2322.53%201955.25L2259.68%201963.21L2212.76%201965.02L1611.63%201964.85L1572.38%201962.78L1533.02%201958.17L1493.63%201951.19L1462.27%201943.79L1408.03%201926.92L1377.56%201915.07L1347.67%201901.52L1325.60%201890.38L1289.72%201869.83L1261.85%201851.74L1234.74%201832.29L1202.31%201805.88L1177.50%201783.26L1153.75%201759.41L1131.14%201734.37L1094.47%201687.89L1070.73%201652.76L1053.39%201623.56L1041.14%201601.20L1022.68%201562.89L1000.62%201507.57L992.57%201483.34L981.33%201442.32L969.61%201384.01L965.28%201350.34L962.55%201316.56L961.61%201282.73L962.55%201240.56L968.42%201182.00L975.79%201140.78L981.41%201116.37L995.44%201068.48L1012.75%201022.03L1029.67%20984.62L1052.86%20941.52L1316.26%20545.79L1359.89%20477.85L1395.02%20432.25L1417.03%20407.49L1440.29%20383.63L1464.94%20361.05L1490.76%20339.56L1538.80%20305.30L1589.99%20275.31L1620.48%20260.19L1659.66%20243.25L1691.82%20231.54L1732.84%20219.15L1783.07%20207.68L1816.99%20201.94L1859.77%20197.20Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%2079.54L1968.07%2080.95L2006.41%2084.05L2044.55%2088.83L2110.53%20101.45L2147.66%20110.93L2202.31%20128.42L2264.22%20153.24L2289.97%20165.52L2323.54%20183.21L2372.05%20212.57L2410.63%20239.50L2432.90%20256.71L2468.52%20286.90L2495.51%20312.50L2527.35%20346.05L2562.65%20388.39L2599.66%20440.28L2623.20%20478.80L2661.53%20537.40L2877.50%20861.63L2899.15%20901.23L2911.07%20925.69L2935.52%20984.60L2952.95%201036.83L2960.22%201063.48L2970.38%201108.55L2977.94%201154.30L2984.09%201219.16L2985.17%201265.83L2982.20%201331.28L2976.90%201377.88L2964.98%201442.54L2953.19%201488.05L2935.90%201541.75L2915.08%201594.17L2899.15%201628.22L2872.61%201677.90L2847.75%201717.64L2821.16%201756.10L2792.31%201792.80L2755.29%201834.60L2722.42%201867.33L2694.81%201891.98L2659.07%201921.07L2621.59%201947.65L2575.14%201976.74L2526.94%202002.24L2477.52%202024.32L2435.39%202039.75L2409.81%202047.74L2384.24%202055.10L2341.14%202064.95L2297.94%202072.36L2263.43%202076.66L2211.73%202079.85L1628.25%202079.93L1593.76%202078.35L1550.60%202073.80L1524.58%202070.13L1472.71%202059.85L1446.78%202053.56L1404.04%202040.70L1370.35%202028.38L1328.66%202011.02L1279.86%201986.76L1240.36%201963.84L1209.68%201943.72L1179.72%201922.28L1143.78%201893.28L1116.18%201868.53L1089.42%201842.67L1057.91%201808.34L1016.94%201757.31L984.89%201711.06L970.03%201687.11L938.52%201629.29L915.31%201577.76L898.41%201533.76L886.78%201497.89L876.77%201461.53L868.40%201424.78L861.79%201387.69L857.85%201359.74L853.58%201312.94L852.06%201275.43L852.66%201228.60L855.00%201191.29L858.04%201163.46L865.05%201117.48L872.46%201081.13L884.42%201036.46L892.76%201010.10L908.44%20966.99L934.32%20908.65L960.01%20860.79L1210.21%20484.49L1228.86%20453.69L1248.86%20423.41L1270.41%20393.98L1299.14%20358.09L1323.93%20330.72L1350.03%20304.32L1384.45%20272.81L1406.16%20255.02L1436.16%20232.42L1475.27%20206.12L1507.70%20186.62L1541.12%20168.64L1584.17%20148.42L1610.63%20137.59L1646.43%20124.18L1682.97%20112.81L1710.71%20105.30L1757.51%2094.75L1804.92%2087.12L1843.14%2082.81L1871.91%2080.61Z%22%2F%3E%3Cpath%20d%3D%22M2181.70%201.55L2192.17%203.10L2242.44%2019.33L2311.00%2046.45L2358.44%2068.96L2386.17%2083.77L2439.87%20116.10L2491.15%20151.61L2531.79%20183.65L2562.61%20211.12L2585.03%20232.24L2613.47%20261.74L2659.90%20315.68L2696.02%20364.25L2723.49%20406.08L2738.58%20431.91L2964.18%20770.69L2993.17%20822.92L3018.79%20877.28L3037.52%20924.00L3053.62%20971.90L3062.11%201001.11L3071.94%201040.56L3080.07%201080.51L3086.37%201120.87L3091.15%201161.56L3094.14%201212.75L3094.62%201253.84L3093.39%201294.98L3090.34%201336.08L3085.46%201377.03L3078.78%201417.76L3072.58%201448.09L3060.25%201498.22L3045.15%201547.58L3031.20%201586.44L3019.63%201615.15L2998.41%201662.14L2984.62%201689.80L2959.62%201734.77L2920.73%201795.25L2902.69%201820.16L2871.01%201860.35L2851.23%201883.73L2816.45%201920.98L2756.97%201976.26L2725.58%202001.76L2693.25%202025.85L2634.70%202064.58L2591.31%202089.23L2555.82%202107.13L2528.78%202119.43L2483.15%202138.04L2436.68%202153.74L2417.31%202158.03%22%2F%3E%3Cpath%20d%3D%22M1422.55%202158.30L1402.83%202154.66L1365.60%202142.25L1319.72%202124.25L1283.47%202108.16L1239.11%202085.57L1204.33%202065.78L1162.15%202038.59L1129.12%202015.41L1081.64%201977.58L1066.43%201964.15L1029.27%201929.41L1007.83%201907.57L980.40%201877.27L954.23%201845.76L929.31%201813.14L900.03%201770.88L872.98%201727.04L853.11%201690.88L834.73%201653.89L817.84%201616.15L802.70%201577.66L788.94%201538.62L777.14%201498.94L766.93%201458.83L758.48%201418.31L753.37%201387.71L747.86%201346.73L743.77%201295.26L742.40%201254.03L742.93%201212.82L748.12%201141.08L753.62%201100.44L760.96%201060.18L770.03%201020.38L783.75%20971.41L796.56%20932.94L818.71%20876.58L831.14%20849.10L853.51%20804.34L873.62%20769.82L1094.25%20438.49L1125.57%20387.57L1154.07%20346.13L1178.53%20313.85L1204.73%20282.78L1246.34%20237.56L1291.59%20195.60L1339.74%20156.40L1390.64%20120.28L1417.06%20103.44L1462.46%2077.40L1528.59%2045.27L1597.28%2018.31L1637.50%205.29L1647.69%202.49L1658.23%201.25%22%2F%3E%3Cpath%20d%3D%22M2482.14%203.45L2520.81%2027.86L2567.35%2060.75L2594.40%2081.49L2629.26%20110.43L2670.85%20148.54L2694.76%20172.31L2747.02%20230.62L2767.95%20256.63L2807.26%20310.09L2837.00%20356.33L2853.67%20384.57L3061.99%20697.25L3097.51%20765.02L3120.26%20815.04L3144.14%20876.79L3157.98%20918.86L3170.17%20961.56L3187.02%201037.64L3194.11%201081.73L3200.33%201137.29L3203.26%201182.00L3204.41%201226.85L3202.27%201294.18L3198.55%201338.99L3192.97%201383.62L3181.21%201450.08L3161.98%201526.43L3148.84%201569.45L3137.68%201601.28L3112.71%201663.89L3083.67%201724.63L3051.27%201783.51L3027.93%201821.66L3002.84%201858.63L2955.77%201920.81L2912.04%201971.11L2873.54%202010.90L2841.36%202041.18L2790.83%202083.77L2729.31%202129.58L2692.49%202153.15L2682.34%202157.75%22%2F%3E%3Cpath%20d%3D%22M1157.25%202158.28L1146.63%202154.26L1109.81%202130.61L1047.84%202085.15L989.01%202035.10L933.82%201980.60L889.58%201930.65L868.32%201904.80L841.75%201868.92L816.21%201832.18L792.23%201794.33L753.77%201725.82L724.98%201664.82L699.65%201602.20L688.52%201570.28L675.24%201527.20L663.55%201483.65L651.81%201428.51L639.82%201350.54L633.72%201271.95L633.39%201193.23L638.84%201114.86L644.60%201070.42L656.68%201004.45L670.06%20950.34L689.61%20886.61L704.73%20844.97L730.76%20784.08L754.60%20734.65L781.93%20687.15L978.31%20391.83L1018.82%20326.82L1050.36%20281.46L1084.40%20237.53L1113.54%20203.69L1144.12%20170.85L1167.91%20146.84L1218.37%20101.59L1262.61%2065.97L1290.24%2045.88L1318.46%2026.45L1357.32%202.32%22%2F%3E%3Cpath%20d%3D%22M2685.84%202.71L2723.62%2034.31L2750.69%2059.39L2802.70%20111.19L2835.19%20147.57L2880.95%20204.13L2929.60%20272.95L2973.62%20343.91L3143.18%20598.58L3167.42%20639.61L3194.60%20692.73L3224.00%20758.31L3253.43%20837.15L3264.10%20871.69L3279.84%20929.97L3292.79%20989.07L3302.73%201048.86L3310.39%201121.29L3313.27%201169.84L3313.15%201255.01L3311.15%201291.49L3306.85%201340.01L3300.66%201388.34L3294.78%201424.41L3276.87%201507.76L3263.92%201554.70L3241.22%201624.07L3223.62%201669.40L3204.71%201714.14L3172.58%201779.45L3137.08%201842.82L3097.94%201903.84L3055.31%201962.27L3017.54%202009.05L2960.77%202070.90L2900.02%202128.39L2873.01%202151.79L2862.58%202158.07%22%2F%3E%3Cpath%20d%3D%22M976.91%202158.60L965.63%202153.17L956.52%202145.48L911.99%202105.67L886.26%202080.62L852.93%202046.10L828.84%202019.27L782.70%201963.64L740.05%201905.07L694.58%201833.57L659.54%201769.76L628.03%201703.99L604.72%201647.76L580.50%201578.78L566.70%201531.99L557.63%201496.53L542.52%201424.89L531.65%201352.47L526.81%201303.89L524.61%201267.35L523.39%201206.38L524.97%201145.47L526.67%201121.17L534.44%201048.59L544.36%20988.67L557.25%20929.43L573.01%20871.02L596.15%20802.39L622.83%20735.35L648.26%20681.05L675.98%20628.13L688.04%20607.53L864.61%20342.50L902.09%20281.43L928.96%20241.53L957.38%20202.43L1003.49%20146.07L1053.00%2092.03L1106.15%2041.03L1143.46%208.78L1153.60%201.84%22%2F%3E%3Cpath%20d%3D%22M2859.51%200.87L2870.19%208.61L2888.84%2027.38L2933.27%2076.21L2974.94%20127.06L3013.89%20179.63L3043.16%20222.73L3083.79%20289.00L3240.12%20523.81L3259.45%20557.41L3277.55%20591.72L3310.88%20661.97L3335.59%20722.05L3349.19%20758.65L3372.71%20833.23L3386.16%20883.71L3402.50%20960.44L3412.45%201025.14L3420.30%201103.37L3423.38%201195.12L3421.77%201260.70L3415.55%201339.19L3408.71%201391.23L3397.42%201455.82L3379.80%201532.47L3357.79%201607.89L3331.53%201681.85L3301.08%201754.06L3266.65%201824.32L3241.71%201870.04L3207.88%201925.56L3156.55%202000.45L3116.79%202051.52L3083.61%202091.11L3048.78%202129.16L3021.74%202156.74%22%2F%3E%3Cpath%20d%3D%22M817.37%202157.53L780.77%202121.10L729.57%202062.87L681.55%202001.71L637.20%201937.63L609.23%201893.69L565.11%201813.79L541.97%201766.94L525.83%201731.18L501.38%201670.47L479.63%201608.66L460.81%201545.82L442.40%201469.22L428.57%201391.61L422.98%201352.56L417.93%201300.22L414.37%201234.58L414.08%201168.86L416.77%201103.22L423.06%201037.86L434.75%20960.03L448.26%20895.92L464.51%20832.57L484.06%20770.25L506.48%20709.04L531.90%20649.16L560.19%20590.74L578.27%20556.34L597.69%20522.72L740.23%20309.01L794.84%20221.02L824.35%20178.02L855.34%20135.76L888.25%2094.76L931.72%2045.12L968.62%207.14%22%2F%3E%3Cpath%20d%3D%22M3033.74%208.37L3070.27%2051.63L3104.47%2096.64L3128.92%20131.10L3160.10%20177.78L3196.35%20237.55L3319.51%20422.13L3334.68%20445.56L3361.86%20494.27L3398.81%20569.46L3421.38%20620.66L3451.38%20699.16L3468.86%20752.46L3487.99%20820.00L3503.81%20888.46L3518.19%20971.59L3523.73%201013.44L3530.72%201097.59L3532.90%201167.92L3532.11%201224.21L3528.41%201294.47L3520.90%201364.40L3510.36%201433.89L3492.99%201516.35L3475.51%201584.28L3449.94%201664.39L3425.07%201729.80L3397.70%201794.09L3367.18%201856.83L3333.82%201917.99L3297.84%201977.50L3259.36%202035.27L3209.41%202101.73L3165.31%202154.94%22%2F%3E%3Cpath%20d%3D%22M672.88%202156.36L637.37%202113.88L586.82%202047.78L547.66%201990.37L510.99%201931.19L470.47%201857.93L439.89%201795.08L417.59%201743.73L387.54%201665.18L366.03%201598.39L350.78%201544.28L332.06%201462.00L320.11%201392.63L314.47%201350.75L308.61%201294.68L305.53%201238.38L304.09%201167.90L306.46%201097.44L310.66%201041.20L321.11%20957.29L333.50%20887.96L345.89%20833.03L364.33%20765.16L381.37%20711.59L410.86%20632.72L432.95%20581.19L463.18%20518.09L503.10%20444.41L641.66%20236.08L662.98%20199.91L709.25%20129.51L742.16%2083.65L777.11%2039.11L804.59%206.60%22%2F%3E%3Cpath%20d%3D%22M3185.33%202.06L3212.81%2038.22L3247.59%2087.62L3280.34%20138.17L3311.17%20189.69L3427.07%20363.73L3455.91%20416.22L3476.33%20456.27L3502.05%20510.46L3525.69%20565.63L3552.37%20635.82L3571.29%20692.87L3588.06%20750.61L3605.82%20823.67L3620.22%20897.48L3629.17%20956.98L3637.29%201031.76L3640.95%201091.81L3642.43%201151.93L3641.09%201227.07L3637.50%201287.05L3631.58%201346.81L3625.73%201391.44L3612.98%201465.31L3600.39%201523.88L3585.73%201581.91L3564.53%201653.56L3539.95%201724.03L3517.98%201779.46L3481.57%201860.99L3454.70%201914.01L3433.51%201953.17L3395.73%202016.93L3355.23%202078.83L3302.84%202150.27%22%2F%3E%3Cpath%20d%3D%22M535.25%202151.62L517.17%202128.22L482.77%202080.08L458.16%202043.09L411.58%201967.23L382.96%201915.13L356.18%201861.97L325.34%201794.13L297.59%201724.85L272.81%201654.32L251.58%201582.55L233.48%201509.83L218.65%201436.27L207.30%201362.01L200.77%201302.22L195.95%201227.15L194.57%201182.00L196.12%201091.66L201.10%201016.49L207.95%20956.60L219.55%20882.17L231.40%20823.08L245.50%20764.50L266.16%20692.11L280.04%20649.15L311.79%20564.67L335.55%20509.44L361.24%20455.14L374.74%20428.32L410.88%20362.61L526.64%20188.13L565.61%20123.83L590.58%2086.11L634.50%2024.53L653.77%201.22%22%2F%3E%3Cpath%20d%3D%22M3342.21%209.62L3386.77%2076.71L3428.44%20145.28L3517.25%20278.32L3548.31%20334.35L3570.35%20377.07L3604.20%20449.69L3635.09%20523.64L3657.17%20583.84L3681.85%20660.12L3702.84%20737.49L3713.62%20784.36L3726.00%20847.28L3736.02%20910.59L3745.03%20990.18L3750.44%201070.05L3752.10%201134.02L3750.62%201213.95L3745.54%201293.65L3738.75%201357.13L3726.99%201435.96L3715.06%201498.52L3696.95%201575.94L3680.05%201637.18L3655.79%201712.68L3622.14%201801.53L3584.03%201888.34L3563.35%201930.92L3526.27%202000.43L3494.47%202054.74L3452.17%202120.91L3434.19%202146.64L3423.36%202158.29%22%2F%3E%3Cpath%20d%3D%22M403.83%202147.91L368.47%202095.92L327.35%202028.83L296.38%201973.89L260.31%201903.65L227.53%201831.68L203.59%201773.01L176.52%201698.44L152.82%201622.61L136.51%201561.09L122.19%201499.00L107.65%201420.60L96.50%201341.54L90.32%201277.89L87.00%201230.00L85.20%201149.97L86.60%201069.86L92.12%20989.88L99.09%20926.09L111.18%20846.75L123.63%20783.75L146.59%20690.19L164.91%20628.62L185.56%20567.80L208.29%20507.74L233.34%20448.62L260.44%20390.43L289.59%20333.26L320.70%20277.16L409.69%20144.00L459.82%2061.56L495.93%208.09%22%2F%3E%3Cpath%20d%3D%22M3485.08%202.63L3538.68%2090.19L3613.68%20204.15L3654.49%20279.08L3677.17%20324.97L3719.04%20418.35L3744.23%20481.75L3761.47%20529.90L3782.35%20594.80L3796.61%20643.89L3809.42%20693.36L3824.38%20759.81L3833.81%20809.99L3837.86%20843.83%22%2F%3E%3Cpath%20d%3D%22M3837.25%201417.41L3835.95%201434.24L3826.71%201483.99L3816.42%201533.48L3804.68%201582.60L3791.57%201631.32L3772.36%201695.71L3756.44%201743.45L3739.01%201790.63L3707.56%201868.18L3687.21%201914.00L3665.55%201959.17L3642.72%202003.70L3610.73%202062.14L3558.80%202147.32%22%2F%3E%3Cpath%20d%3D%22M279.20%202148.50L261.03%202120.60L218.79%202048.81L172.09%201960.22L129.76%201869.21L92.44%201775.81L75.57%201728.35L60.09%201680.36L36.85%201599.48L20.67%201534.02L10.51%201484.43L4.20%201451.25L0.82%201417.65%22%2F%3E%3Cpath%20d%3D%22M0.30%20843.51L3.41%20809.45L9.41%20775.89L23.88%20709.24L45.20%20626.66L75.72%20528.91L111.91%20433.07L153.09%20339.23L191.19%20262.78L215.71%20217.76L233.15%20188.37L289.93%20103.08L325.47%2044.63L353.50%201.56%22%2F%3E%3Cpath%20d%3D%22M3631.91%205.43L3660.04%2052.00L3700.07%20112.42L3726.76%20159.78L3752.18%20207.81L3776.12%20256.57L3806.08%20322.46L3833.85%20389.26L3838.28%20406.96%22%2F%3E%3Cpath%20d%3D%22M3837.48%201823.58L3832.22%201840.43L3812.31%201889.50L3768.66%201985.82L3728.54%202064.09L3703.00%202110.17L3676.13%202155.44%22%2F%3E%3Cpath%20d%3D%22M161.72%202156.63L117.51%202080.69L68.88%201986.89L46.44%201938.97L11.67%201857.78L5.34%201841.27L0.85%201824.14%22%2F%3E%3Cpath%20d%3D%22M3.59%20388.20L38.70%20304.73L69.19%20238.96L93.89%20190.50L137.75%20111.12L177.87%2050.65L205.91%203.94%22%2F%3E%3Cpath%20d%3D%22M3772.89%201.58L3783.74%2017.40L3803.61%2050.21L3831.29%20100.65L3838.16%20118.75%22%2F%3E%3Cpath%20d%3D%22M3837.79%202076.28L3830.75%202093.38L3822.20%202109.77L3794.52%202157.81%22%2F%3E%3Cpath%20d%3D%22M44.46%202158.34L33.34%202143.30L6.88%202094.51L0.78%202076.95%22%2F%3E%3Cpath%20d%3D%22M0.37%20117.93L6.61%2099.45L34.22%2048.91L54.28%2016.17L66.12%200.95%22%2F%3E%3C%2Fsvg%3E");-webkit-mask-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%203840%202160%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M1920.00%20771.21L1934.35%20771.11L1937.86%20772.83L1941.23%20776.93L2281.99%201289.23L2327.29%201359.09L2327.81%201385.33L2325.13%201388.42L2300.60%201388.65L1514.49%201388.62L1509.21%201386.81L1509.44%201360.52L1511.49%201355.40L1848.87%20847.37L1898.58%20773.27L1902.07%20771.24Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20655.95L1938.34%20656.77L1952.01%20658.71L1974.44%20664.08L1987.56%20668.83L2012.67%20682.00L2028.21%20693.91L2038.98%20704.79L2048.75%20717.75L2418.66%201274.42L2426.30%201289.62L2431.74%201304.86L2435.91%201325.07L2437.34%201345.12L2436.30%201364.83L2432.03%201388.88L2426.15%201407.35L2418.47%201425.12L2408.77%201441.89L2394.07%201461.25L2372.14%201481.26L2359.12%201489.47L2339.58%201498.18L2328.69%201501.30L2310.45%201503.86L1529.44%201503.95L1505.08%201500.38L1489.12%201495.05L1479.53%201490.42L1466.49%201482.17L1454.47%201472.89L1437.77%201454.83L1419.18%201426.27L1408.12%201399.28L1400.71%201365.89L1400.11%201336.00L1403.76%201310.71L1412.63%201285.23L1424.71%201264.88L1796.95%20706.21L1815.14%20688.68L1827.00%20680.24L1847.97%20669.49L1865.48%20663.30L1883.43%20659.06L1897.07%20656.92Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20540.60L1953.52%20542.37L1970.16%20544.70L2002.97%20551.76L2034.83%20562.41L2060.32%20574.21L2084.67%20588.21L2111.81%20608.74L2136.41%20632.62L2157.70%20660.43L2173.14%20685.19L2500.63%201176.93L2510.72%201192.31L2522.07%201213.55L2532.83%201241.01L2539.23%201263.52L2543.79%201286.39L2545.89%201303.66L2546.97%201332.52L2545.23%201361.28L2542.78%201378.36L2539.54%201395.32L2533.61%201417.54L2521.84%201449.96L2503.52%201485.76L2480.54%201518.81L2457.71%201544.69L2431.54%201567.48L2407.46%201583.83L2381.38%201597.43L2353.64%201608.14L2318.14%201616.49L2280.59%201619.43L1553.06%201619.31L1521.57%201616.81L1503.43%201613.37L1474.23%201605.02L1452.28%201595.80L1441.61%201590.58L1416.57%201575.32L1393.48%201557.56L1368.70%201533.22L1346.95%201506.22L1334.30%201486.90L1323.16%201466.68L1311.38%201440.34L1305.39%201424.10L1299.04%201401.89L1294.37%201379.26L1291.52%201356.29L1290.23%201327.39L1291.85%201298.42L1295.28%201275.37L1300.57%201252.58L1312.78%201219.14L1320.45%201202.94L1329.66%201187.15L1580.18%20811.15L1681.11%20657.80L1695.18%20639.23L1718.99%20614.35L1740.92%20596.24L1764.52%20580.82L1789.45%20567.81L1815.51%20557.58L1853.29%20547.30L1892.04%20541.66Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20425.34L1972.69%20428.51L2011.75%20434.78L2062.53%20448.73L2093.17%20460.71L2117.01%20471.61L2145.64%20487.54L2162.10%20498.32L2188.41%20517.66L2203.35%20530.34L2226.67%20553.23L2244.05%20572.54L2263.53%20598.81L2330.60%20701.24L2599.37%201104.60L2615.25%201133.38L2623.44%201151.29L2637.36%201188.26L2646.08%201220.05L2653.96%201265.62L2656.40%201305.23L2655.64%201338.37L2653.32%201364.84L2650.31%201384.53L2642.02%201423.58L2629.72%201461.57L2611.57%201504.48L2588.83%201545.15L2573.95%201567.20L2553.51%201593.40L2521.75%201627.27L2496.91%201649.17L2475.64%201665.01L2436.29%201689.36L2412.57%201701.06L2388.06%201711.05L2369.33%201717.50L2343.84%201724.50L2324.47%201728.61L2298.19%201732.26L2265.24%201734.51L1574.68%201734.63L1548.23%201733.17L1515.19%201729.07L1482.72%201722.00L1451.25%201711.83L1420.44%201699.31L1396.75%201687.29L1374.01%201673.61L1341.64%201650.34L1316.55%201628.53L1284.65%201594.60L1256.37%201557.46L1235.45%201523.30L1220.44%201493.46L1203.17%201450.01L1192.19%201411.48L1184.80%201372.14L1181.05%201332.34L1181.10%201292.43L1184.77%201252.79L1191.00%201220.21L1204.03%201175.75L1221.98%201133.19L1238.08%201104.31L1523.92%20675.04L1575.11%20596.48L1586.70%20580.70L1612.26%20551.05L1630.92%20532.72L1645.76%20519.93L1677.32%20496.70L1716.80%20473.37L1758.72%20454.50L1802.55%20440.45L1847.67%20430.81L1887.01%20426.48Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20310.15L1950.43%20310.72L1988.29%20314.26L2033.31%20321.32L2055.54%20326.23L2084.81%20334.15L2127.76%20348.73L2175.92%20370.32L2195.84%20380.89L2228.00%20400.09L2276.00%20435.64L2303.77%20460.24L2324.53%20481.33L2348.55%20509.31L2366.39%20532.50L2405.47%20593.07L2692.91%201024.75L2713.52%201063.41L2730.95%201103.91L2742.88%201138.87L2755.68%201189.29L2760.59%201218.70L2764.05%201248.43L2765.91%201285.86L2764.36%201338.49L2760.33%201376.01L2750.05%201427.87L2737.84%201471.61L2724.65%201507.10L2712.44%201534.82L2695.53%201568.66L2680.15%201594.73L2659.27%201626.20L2640.89%201650.15L2616.39%201678.73L2590.14%201705.57L2573.55%201720.74L2538.83%201749.05L2508.01%201770.01L2488.93%201781.53L2462.95%201795.70L2429.24%201810.85L2394.87%201823.75L2359.87%201834.13L2310.00%201844.09L2274.20%201848.15L2245.65%201849.69L1594.30%201849.78L1558.45%201847.89L1522.58%201843.41L1486.85%201836.42L1451.57%201826.74L1403.20%201808.93L1376.23%201796.62L1350.05%201782.61L1312.15%201758.83L1282.18%201736.45L1264.90%201722.02L1232.12%201691.00L1196.90%201651.59L1161.72%201602.32L1142.38%201569.71L1131.80%201549.55L1112.94%201508.07L1104.74%201486.81L1093.09%201450.68L1085.38%201421.32L1079.50%201391.56L1072.79%201339.02L1071.11%201308.87L1071.09%201286.23L1072.39%201256.16L1076.38%201218.83L1083.03%201182.00L1096.51%201131.63L1106.29%201103.65L1114.77%201083.13L1127.04%201056.41L1144.61%201024.25L1436.78%20585.27L1455.63%20554.43L1490.10%20507.19L1524.75%20468.96L1551.87%20443.64L1574.78%20424.49L1598.92%20406.84L1630.56%20386.78L1656.92%20372.31L1704.99%20350.62L1755.04%20333.35L1776.96%20327.23L1806.63%20320.86L1836.59%20315.73L1874.39%20311.77Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%20194.70L1963.05%20196.08L2014.45%20201.10L2048.41%20206.61L2082.05%20213.61L2123.48%20224.69L2164.07%20238.24L2203.64%20254.27L2242.05%20272.55L2286.34%20297.57L2314.56%20316.21L2348.37%20341.28L2367.77%20357.31L2386.50%20373.99L2421.84%20409.24L2454.20%20446.74L2469.07%20466.44L2492.22%20500.05L2522.04%20547.58L2784.65%20942.21L2796.62%20963.43L2814.74%20999.96L2833.74%201045.44L2851.49%201100.51L2861.30%201140.90L2869.88%201190.29L2874.65%201240.39L2875.65%201290.88L2872.70%201341.43L2869.96%201366.65L2863.18%201408.44L2851.80%201458.01L2839.58%201498.64L2821.66%201546.29L2804.13%201584.92L2780.26%201629.82L2757.79%201665.70L2733.44%201700.22L2707.02%201733.08L2684.65%201758.21L2660.95%201782.01L2623.51%201815.44L2597.30%201836.06L2563.26%201859.86L2527.92%201881.33L2498.90%201896.88L2461.64%201913.98L2423.73%201928.81L2369.55%201945.19L2322.53%201955.25L2259.68%201963.21L2212.76%201965.02L1611.63%201964.85L1572.38%201962.78L1533.02%201958.17L1493.63%201951.19L1462.27%201943.79L1408.03%201926.92L1377.56%201915.07L1347.67%201901.52L1325.60%201890.38L1289.72%201869.83L1261.85%201851.74L1234.74%201832.29L1202.31%201805.88L1177.50%201783.26L1153.75%201759.41L1131.14%201734.37L1094.47%201687.89L1070.73%201652.76L1053.39%201623.56L1041.14%201601.20L1022.68%201562.89L1000.62%201507.57L992.57%201483.34L981.33%201442.32L969.61%201384.01L965.28%201350.34L962.55%201316.56L961.61%201282.73L962.55%201240.56L968.42%201182.00L975.79%201140.78L981.41%201116.37L995.44%201068.48L1012.75%201022.03L1029.67%20984.62L1052.86%20941.52L1316.26%20545.79L1359.89%20477.85L1395.02%20432.25L1417.03%20407.49L1440.29%20383.63L1464.94%20361.05L1490.76%20339.56L1538.80%20305.30L1589.99%20275.31L1620.48%20260.19L1659.66%20243.25L1691.82%20231.54L1732.84%20219.15L1783.07%20207.68L1816.99%20201.94L1859.77%20197.20Z%22%2F%3E%3Cpath%20d%3D%22M1920.00%2079.54L1968.07%2080.95L2006.41%2084.05L2044.55%2088.83L2110.53%20101.45L2147.66%20110.93L2202.31%20128.42L2264.22%20153.24L2289.97%20165.52L2323.54%20183.21L2372.05%20212.57L2410.63%20239.50L2432.90%20256.71L2468.52%20286.90L2495.51%20312.50L2527.35%20346.05L2562.65%20388.39L2599.66%20440.28L2623.20%20478.80L2661.53%20537.40L2877.50%20861.63L2899.15%20901.23L2911.07%20925.69L2935.52%20984.60L2952.95%201036.83L2960.22%201063.48L2970.38%201108.55L2977.94%201154.30L2984.09%201219.16L2985.17%201265.83L2982.20%201331.28L2976.90%201377.88L2964.98%201442.54L2953.19%201488.05L2935.90%201541.75L2915.08%201594.17L2899.15%201628.22L2872.61%201677.90L2847.75%201717.64L2821.16%201756.10L2792.31%201792.80L2755.29%201834.60L2722.42%201867.33L2694.81%201891.98L2659.07%201921.07L2621.59%201947.65L2575.14%201976.74L2526.94%202002.24L2477.52%202024.32L2435.39%202039.75L2409.81%202047.74L2384.24%202055.10L2341.14%202064.95L2297.94%202072.36L2263.43%202076.66L2211.73%202079.85L1628.25%202079.93L1593.76%202078.35L1550.60%202073.80L1524.58%202070.13L1472.71%202059.85L1446.78%202053.56L1404.04%202040.70L1370.35%202028.38L1328.66%202011.02L1279.86%201986.76L1240.36%201963.84L1209.68%201943.72L1179.72%201922.28L1143.78%201893.28L1116.18%201868.53L1089.42%201842.67L1057.91%201808.34L1016.94%201757.31L984.89%201711.06L970.03%201687.11L938.52%201629.29L915.31%201577.76L898.41%201533.76L886.78%201497.89L876.77%201461.53L868.40%201424.78L861.79%201387.69L857.85%201359.74L853.58%201312.94L852.06%201275.43L852.66%201228.60L855.00%201191.29L858.04%201163.46L865.05%201117.48L872.46%201081.13L884.42%201036.46L892.76%201010.10L908.44%20966.99L934.32%20908.65L960.01%20860.79L1210.21%20484.49L1228.86%20453.69L1248.86%20423.41L1270.41%20393.98L1299.14%20358.09L1323.93%20330.72L1350.03%20304.32L1384.45%20272.81L1406.16%20255.02L1436.16%20232.42L1475.27%20206.12L1507.70%20186.62L1541.12%20168.64L1584.17%20148.42L1610.63%20137.59L1646.43%20124.18L1682.97%20112.81L1710.71%20105.30L1757.51%2094.75L1804.92%2087.12L1843.14%2082.81L1871.91%2080.61Z%22%2F%3E%3Cpath%20d%3D%22M2181.70%201.55L2192.17%203.10L2242.44%2019.33L2311.00%2046.45L2358.44%2068.96L2386.17%2083.77L2439.87%20116.10L2491.15%20151.61L2531.79%20183.65L2562.61%20211.12L2585.03%20232.24L2613.47%20261.74L2659.90%20315.68L2696.02%20364.25L2723.49%20406.08L2738.58%20431.91L2964.18%20770.69L2993.17%20822.92L3018.79%20877.28L3037.52%20924.00L3053.62%20971.90L3062.11%201001.11L3071.94%201040.56L3080.07%201080.51L3086.37%201120.87L3091.15%201161.56L3094.14%201212.75L3094.62%201253.84L3093.39%201294.98L3090.34%201336.08L3085.46%201377.03L3078.78%201417.76L3072.58%201448.09L3060.25%201498.22L3045.15%201547.58L3031.20%201586.44L3019.63%201615.15L2998.41%201662.14L2984.62%201689.80L2959.62%201734.77L2920.73%201795.25L2902.69%201820.16L2871.01%201860.35L2851.23%201883.73L2816.45%201920.98L2756.97%201976.26L2725.58%202001.76L2693.25%202025.85L2634.70%202064.58L2591.31%202089.23L2555.82%202107.13L2528.78%202119.43L2483.15%202138.04L2436.68%202153.74L2417.31%202158.03%22%2F%3E%3Cpath%20d%3D%22M1422.55%202158.30L1402.83%202154.66L1365.60%202142.25L1319.72%202124.25L1283.47%202108.16L1239.11%202085.57L1204.33%202065.78L1162.15%202038.59L1129.12%202015.41L1081.64%201977.58L1066.43%201964.15L1029.27%201929.41L1007.83%201907.57L980.40%201877.27L954.23%201845.76L929.31%201813.14L900.03%201770.88L872.98%201727.04L853.11%201690.88L834.73%201653.89L817.84%201616.15L802.70%201577.66L788.94%201538.62L777.14%201498.94L766.93%201458.83L758.48%201418.31L753.37%201387.71L747.86%201346.73L743.77%201295.26L742.40%201254.03L742.93%201212.82L748.12%201141.08L753.62%201100.44L760.96%201060.18L770.03%201020.38L783.75%20971.41L796.56%20932.94L818.71%20876.58L831.14%20849.10L853.51%20804.34L873.62%20769.82L1094.25%20438.49L1125.57%20387.57L1154.07%20346.13L1178.53%20313.85L1204.73%20282.78L1246.34%20237.56L1291.59%20195.60L1339.74%20156.40L1390.64%20120.28L1417.06%20103.44L1462.46%2077.40L1528.59%2045.27L1597.28%2018.31L1637.50%205.29L1647.69%202.49L1658.23%201.25%22%2F%3E%3Cpath%20d%3D%22M2482.14%203.45L2520.81%2027.86L2567.35%2060.75L2594.40%2081.49L2629.26%20110.43L2670.85%20148.54L2694.76%20172.31L2747.02%20230.62L2767.95%20256.63L2807.26%20310.09L2837.00%20356.33L2853.67%20384.57L3061.99%20697.25L3097.51%20765.02L3120.26%20815.04L3144.14%20876.79L3157.98%20918.86L3170.17%20961.56L3187.02%201037.64L3194.11%201081.73L3200.33%201137.29L3203.26%201182.00L3204.41%201226.85L3202.27%201294.18L3198.55%201338.99L3192.97%201383.62L3181.21%201450.08L3161.98%201526.43L3148.84%201569.45L3137.68%201601.28L3112.71%201663.89L3083.67%201724.63L3051.27%201783.51L3027.93%201821.66L3002.84%201858.63L2955.77%201920.81L2912.04%201971.11L2873.54%202010.90L2841.36%202041.18L2790.83%202083.77L2729.31%202129.58L2692.49%202153.15L2682.34%202157.75%22%2F%3E%3Cpath%20d%3D%22M1157.25%202158.28L1146.63%202154.26L1109.81%202130.61L1047.84%202085.15L989.01%202035.10L933.82%201980.60L889.58%201930.65L868.32%201904.80L841.75%201868.92L816.21%201832.18L792.23%201794.33L753.77%201725.82L724.98%201664.82L699.65%201602.20L688.52%201570.28L675.24%201527.20L663.55%201483.65L651.81%201428.51L639.82%201350.54L633.72%201271.95L633.39%201193.23L638.84%201114.86L644.60%201070.42L656.68%201004.45L670.06%20950.34L689.61%20886.61L704.73%20844.97L730.76%20784.08L754.60%20734.65L781.93%20687.15L978.31%20391.83L1018.82%20326.82L1050.36%20281.46L1084.40%20237.53L1113.54%20203.69L1144.12%20170.85L1167.91%20146.84L1218.37%20101.59L1262.61%2065.97L1290.24%2045.88L1318.46%2026.45L1357.32%202.32%22%2F%3E%3Cpath%20d%3D%22M2685.84%202.71L2723.62%2034.31L2750.69%2059.39L2802.70%20111.19L2835.19%20147.57L2880.95%20204.13L2929.60%20272.95L2973.62%20343.91L3143.18%20598.58L3167.42%20639.61L3194.60%20692.73L3224.00%20758.31L3253.43%20837.15L3264.10%20871.69L3279.84%20929.97L3292.79%20989.07L3302.73%201048.86L3310.39%201121.29L3313.27%201169.84L3313.15%201255.01L3311.15%201291.49L3306.85%201340.01L3300.66%201388.34L3294.78%201424.41L3276.87%201507.76L3263.92%201554.70L3241.22%201624.07L3223.62%201669.40L3204.71%201714.14L3172.58%201779.45L3137.08%201842.82L3097.94%201903.84L3055.31%201962.27L3017.54%202009.05L2960.77%202070.90L2900.02%202128.39L2873.01%202151.79L2862.58%202158.07%22%2F%3E%3Cpath%20d%3D%22M976.91%202158.60L965.63%202153.17L956.52%202145.48L911.99%202105.67L886.26%202080.62L852.93%202046.10L828.84%202019.27L782.70%201963.64L740.05%201905.07L694.58%201833.57L659.54%201769.76L628.03%201703.99L604.72%201647.76L580.50%201578.78L566.70%201531.99L557.63%201496.53L542.52%201424.89L531.65%201352.47L526.81%201303.89L524.61%201267.35L523.39%201206.38L524.97%201145.47L526.67%201121.17L534.44%201048.59L544.36%20988.67L557.25%20929.43L573.01%20871.02L596.15%20802.39L622.83%20735.35L648.26%20681.05L675.98%20628.13L688.04%20607.53L864.61%20342.50L902.09%20281.43L928.96%20241.53L957.38%20202.43L1003.49%20146.07L1053.00%2092.03L1106.15%2041.03L1143.46%208.78L1153.60%201.84%22%2F%3E%3Cpath%20d%3D%22M2859.51%200.87L2870.19%208.61L2888.84%2027.38L2933.27%2076.21L2974.94%20127.06L3013.89%20179.63L3043.16%20222.73L3083.79%20289.00L3240.12%20523.81L3259.45%20557.41L3277.55%20591.72L3310.88%20661.97L3335.59%20722.05L3349.19%20758.65L3372.71%20833.23L3386.16%20883.71L3402.50%20960.44L3412.45%201025.14L3420.30%201103.37L3423.38%201195.12L3421.77%201260.70L3415.55%201339.19L3408.71%201391.23L3397.42%201455.82L3379.80%201532.47L3357.79%201607.89L3331.53%201681.85L3301.08%201754.06L3266.65%201824.32L3241.71%201870.04L3207.88%201925.56L3156.55%202000.45L3116.79%202051.52L3083.61%202091.11L3048.78%202129.16L3021.74%202156.74%22%2F%3E%3Cpath%20d%3D%22M817.37%202157.53L780.77%202121.10L729.57%202062.87L681.55%202001.71L637.20%201937.63L609.23%201893.69L565.11%201813.79L541.97%201766.94L525.83%201731.18L501.38%201670.47L479.63%201608.66L460.81%201545.82L442.40%201469.22L428.57%201391.61L422.98%201352.56L417.93%201300.22L414.37%201234.58L414.08%201168.86L416.77%201103.22L423.06%201037.86L434.75%20960.03L448.26%20895.92L464.51%20832.57L484.06%20770.25L506.48%20709.04L531.90%20649.16L560.19%20590.74L578.27%20556.34L597.69%20522.72L740.23%20309.01L794.84%20221.02L824.35%20178.02L855.34%20135.76L888.25%2094.76L931.72%2045.12L968.62%207.14%22%2F%3E%3Cpath%20d%3D%22M3033.74%208.37L3070.27%2051.63L3104.47%2096.64L3128.92%20131.10L3160.10%20177.78L3196.35%20237.55L3319.51%20422.13L3334.68%20445.56L3361.86%20494.27L3398.81%20569.46L3421.38%20620.66L3451.38%20699.16L3468.86%20752.46L3487.99%20820.00L3503.81%20888.46L3518.19%20971.59L3523.73%201013.44L3530.72%201097.59L3532.90%201167.92L3532.11%201224.21L3528.41%201294.47L3520.90%201364.40L3510.36%201433.89L3492.99%201516.35L3475.51%201584.28L3449.94%201664.39L3425.07%201729.80L3397.70%201794.09L3367.18%201856.83L3333.82%201917.99L3297.84%201977.50L3259.36%202035.27L3209.41%202101.73L3165.31%202154.94%22%2F%3E%3Cpath%20d%3D%22M672.88%202156.36L637.37%202113.88L586.82%202047.78L547.66%201990.37L510.99%201931.19L470.47%201857.93L439.89%201795.08L417.59%201743.73L387.54%201665.18L366.03%201598.39L350.78%201544.28L332.06%201462.00L320.11%201392.63L314.47%201350.75L308.61%201294.68L305.53%201238.38L304.09%201167.90L306.46%201097.44L310.66%201041.20L321.11%20957.29L333.50%20887.96L345.89%20833.03L364.33%20765.16L381.37%20711.59L410.86%20632.72L432.95%20581.19L463.18%20518.09L503.10%20444.41L641.66%20236.08L662.98%20199.91L709.25%20129.51L742.16%2083.65L777.11%2039.11L804.59%206.60%22%2F%3E%3Cpath%20d%3D%22M3185.33%202.06L3212.81%2038.22L3247.59%2087.62L3280.34%20138.17L3311.17%20189.69L3427.07%20363.73L3455.91%20416.22L3476.33%20456.27L3502.05%20510.46L3525.69%20565.63L3552.37%20635.82L3571.29%20692.87L3588.06%20750.61L3605.82%20823.67L3620.22%20897.48L3629.17%20956.98L3637.29%201031.76L3640.95%201091.81L3642.43%201151.93L3641.09%201227.07L3637.50%201287.05L3631.58%201346.81L3625.73%201391.44L3612.98%201465.31L3600.39%201523.88L3585.73%201581.91L3564.53%201653.56L3539.95%201724.03L3517.98%201779.46L3481.57%201860.99L3454.70%201914.01L3433.51%201953.17L3395.73%202016.93L3355.23%202078.83L3302.84%202150.27%22%2F%3E%3Cpath%20d%3D%22M535.25%202151.62L517.17%202128.22L482.77%202080.08L458.16%202043.09L411.58%201967.23L382.96%201915.13L356.18%201861.97L325.34%201794.13L297.59%201724.85L272.81%201654.32L251.58%201582.55L233.48%201509.83L218.65%201436.27L207.30%201362.01L200.77%201302.22L195.95%201227.15L194.57%201182.00L196.12%201091.66L201.10%201016.49L207.95%20956.60L219.55%20882.17L231.40%20823.08L245.50%20764.50L266.16%20692.11L280.04%20649.15L311.79%20564.67L335.55%20509.44L361.24%20455.14L374.74%20428.32L410.88%20362.61L526.64%20188.13L565.61%20123.83L590.58%2086.11L634.50%2024.53L653.77%201.22%22%2F%3E%3Cpath%20d%3D%22M3342.21%209.62L3386.77%2076.71L3428.44%20145.28L3517.25%20278.32L3548.31%20334.35L3570.35%20377.07L3604.20%20449.69L3635.09%20523.64L3657.17%20583.84L3681.85%20660.12L3702.84%20737.49L3713.62%20784.36L3726.00%20847.28L3736.02%20910.59L3745.03%20990.18L3750.44%201070.05L3752.10%201134.02L3750.62%201213.95L3745.54%201293.65L3738.75%201357.13L3726.99%201435.96L3715.06%201498.52L3696.95%201575.94L3680.05%201637.18L3655.79%201712.68L3622.14%201801.53L3584.03%201888.34L3563.35%201930.92L3526.27%202000.43L3494.47%202054.74L3452.17%202120.91L3434.19%202146.64L3423.36%202158.29%22%2F%3E%3Cpath%20d%3D%22M403.83%202147.91L368.47%202095.92L327.35%202028.83L296.38%201973.89L260.31%201903.65L227.53%201831.68L203.59%201773.01L176.52%201698.44L152.82%201622.61L136.51%201561.09L122.19%201499.00L107.65%201420.60L96.50%201341.54L90.32%201277.89L87.00%201230.00L85.20%201149.97L86.60%201069.86L92.12%20989.88L99.09%20926.09L111.18%20846.75L123.63%20783.75L146.59%20690.19L164.91%20628.62L185.56%20567.80L208.29%20507.74L233.34%20448.62L260.44%20390.43L289.59%20333.26L320.70%20277.16L409.69%20144.00L459.82%2061.56L495.93%208.09%22%2F%3E%3Cpath%20d%3D%22M3485.08%202.63L3538.68%2090.19L3613.68%20204.15L3654.49%20279.08L3677.17%20324.97L3719.04%20418.35L3744.23%20481.75L3761.47%20529.90L3782.35%20594.80L3796.61%20643.89L3809.42%20693.36L3824.38%20759.81L3833.81%20809.99L3837.86%20843.83%22%2F%3E%3Cpath%20d%3D%22M3837.25%201417.41L3835.95%201434.24L3826.71%201483.99L3816.42%201533.48L3804.68%201582.60L3791.57%201631.32L3772.36%201695.71L3756.44%201743.45L3739.01%201790.63L3707.56%201868.18L3687.21%201914.00L3665.55%201959.17L3642.72%202003.70L3610.73%202062.14L3558.80%202147.32%22%2F%3E%3Cpath%20d%3D%22M279.20%202148.50L261.03%202120.60L218.79%202048.81L172.09%201960.22L129.76%201869.21L92.44%201775.81L75.57%201728.35L60.09%201680.36L36.85%201599.48L20.67%201534.02L10.51%201484.43L4.20%201451.25L0.82%201417.65%22%2F%3E%3Cpath%20d%3D%22M0.30%20843.51L3.41%20809.45L9.41%20775.89L23.88%20709.24L45.20%20626.66L75.72%20528.91L111.91%20433.07L153.09%20339.23L191.19%20262.78L215.71%20217.76L233.15%20188.37L289.93%20103.08L325.47%2044.63L353.50%201.56%22%2F%3E%3Cpath%20d%3D%22M3631.91%205.43L3660.04%2052.00L3700.07%20112.42L3726.76%20159.78L3752.18%20207.81L3776.12%20256.57L3806.08%20322.46L3833.85%20389.26L3838.28%20406.96%22%2F%3E%3Cpath%20d%3D%22M3837.48%201823.58L3832.22%201840.43L3812.31%201889.50L3768.66%201985.82L3728.54%202064.09L3703.00%202110.17L3676.13%202155.44%22%2F%3E%3Cpath%20d%3D%22M161.72%202156.63L117.51%202080.69L68.88%201986.89L46.44%201938.97L11.67%201857.78L5.34%201841.27L0.85%201824.14%22%2F%3E%3Cpath%20d%3D%22M3.59%20388.20L38.70%20304.73L69.19%20238.96L93.89%20190.50L137.75%20111.12L177.87%2050.65L205.91%203.94%22%2F%3E%3Cpath%20d%3D%22M3772.89%201.58L3783.74%2017.40L3803.61%2050.21L3831.29%20100.65L3838.16%20118.75%22%2F%3E%3Cpath%20d%3D%22M3837.79%202076.28L3830.75%202093.38L3822.20%202109.77L3794.52%202157.81%22%2F%3E%3Cpath%20d%3D%22M44.46%202158.34L33.34%202143.30L6.88%202094.51L0.78%202076.95%22%2F%3E%3Cpath%20d%3D%22M0.37%20117.93L6.61%2099.45L34.22%2048.91L54.28%2016.17L66.12%200.95%22%2F%3E%3C%2Fsvg%3E")}
+.brand-line{mask-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%203840%202160%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M1920.00%20194.70L1963.05%20196.08L2014.45%20201.10L2048.41%20206.61L2082.05%20213.61L2123.48%20224.69L2164.07%20238.24L2203.64%20254.27L2242.05%20272.55L2286.34%20297.57L2314.56%20316.21L2348.37%20341.28L2367.77%20357.31L2386.50%20373.99L2421.84%20409.24L2454.20%20446.74L2469.07%20466.44L2492.22%20500.05L2522.04%20547.58L2784.65%20942.21L2796.62%20963.43L2814.74%20999.96L2833.74%201045.44L2851.49%201100.51L2861.30%201140.90L2869.88%201190.29L2874.65%201240.39L2875.65%201290.88L2872.70%201341.43L2869.96%201366.65L2863.18%201408.44L2851.80%201458.01L2839.58%201498.64L2821.66%201546.29L2804.13%201584.92L2780.26%201629.82L2757.79%201665.70L2733.44%201700.22L2707.02%201733.08L2684.65%201758.21L2660.95%201782.01L2623.51%201815.44L2597.30%201836.06L2563.26%201859.86L2527.92%201881.33L2498.90%201896.88L2461.64%201913.98L2423.73%201928.81L2369.55%201945.19L2322.53%201955.25L2259.68%201963.21L2212.76%201965.02L1611.63%201964.85L1572.38%201962.78L1533.02%201958.17L1493.63%201951.19L1462.27%201943.79L1408.03%201926.92L1377.56%201915.07L1347.67%201901.52L1325.60%201890.38L1289.72%201869.83L1261.85%201851.74L1234.74%201832.29L1202.31%201805.88L1177.50%201783.26L1153.75%201759.41L1131.14%201734.37L1094.47%201687.89L1070.73%201652.76L1053.39%201623.56L1041.14%201601.20L1022.68%201562.89L1000.62%201507.57L992.57%201483.34L981.33%201442.32L969.61%201384.01L965.28%201350.34L962.55%201316.56L961.61%201282.73L962.55%201240.56L968.42%201182.00L975.79%201140.78L981.41%201116.37L995.44%201068.48L1012.75%201022.03L1029.67%20984.62L1052.86%20941.52L1316.26%20545.79L1359.89%20477.85L1395.02%20432.25L1417.03%20407.49L1440.29%20383.63L1464.94%20361.05L1490.76%20339.56L1538.80%20305.30L1589.99%20275.31L1620.48%20260.19L1659.66%20243.25L1691.82%20231.54L1732.84%20219.15L1783.07%20207.68L1816.99%20201.94L1859.77%20197.20Z%22%2F%3E%3C%2Fsvg%3E");-webkit-mask-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%203840%202160%22%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M1920.00%20194.70L1963.05%20196.08L2014.45%20201.10L2048.41%20206.61L2082.05%20213.61L2123.48%20224.69L2164.07%20238.24L2203.64%20254.27L2242.05%20272.55L2286.34%20297.57L2314.56%20316.21L2348.37%20341.28L2367.77%20357.31L2386.50%20373.99L2421.84%20409.24L2454.20%20446.74L2469.07%20466.44L2492.22%20500.05L2522.04%20547.58L2784.65%20942.21L2796.62%20963.43L2814.74%20999.96L2833.74%201045.44L2851.49%201100.51L2861.30%201140.90L2869.88%201190.29L2874.65%201240.39L2875.65%201290.88L2872.70%201341.43L2869.96%201366.65L2863.18%201408.44L2851.80%201458.01L2839.58%201498.64L2821.66%201546.29L2804.13%201584.92L2780.26%201629.82L2757.79%201665.70L2733.44%201700.22L2707.02%201733.08L2684.65%201758.21L2660.95%201782.01L2623.51%201815.44L2597.30%201836.06L2563.26%201859.86L2527.92%201881.33L2498.90%201896.88L2461.64%201913.98L2423.73%201928.81L2369.55%201945.19L2322.53%201955.25L2259.68%201963.21L2212.76%201965.02L1611.63%201964.85L1572.38%201962.78L1533.02%201958.17L1493.63%201951.19L1462.27%201943.79L1408.03%201926.92L1377.56%201915.07L1347.67%201901.52L1325.60%201890.38L1289.72%201869.83L1261.85%201851.74L1234.74%201832.29L1202.31%201805.88L1177.50%201783.26L1153.75%201759.41L1131.14%201734.37L1094.47%201687.89L1070.73%201652.76L1053.39%201623.56L1041.14%201601.20L1022.68%201562.89L1000.62%201507.57L992.57%201483.34L981.33%201442.32L969.61%201384.01L965.28%201350.34L962.55%201316.56L961.61%201282.73L962.55%201240.56L968.42%201182.00L975.79%201140.78L981.41%201116.37L995.44%201068.48L1012.75%201022.03L1029.67%20984.62L1052.86%20941.52L1316.26%20545.79L1359.89%20477.85L1395.02%20432.25L1417.03%20407.49L1440.29%20383.63L1464.94%20361.05L1490.76%20339.56L1538.80%20305.30L1589.99%20275.31L1620.48%20260.19L1659.66%20243.25L1691.82%20231.54L1732.84%20219.15L1783.07%20207.68L1816.99%20201.94L1859.77%20197.20Z%22%2F%3E%3C%2Fsvg%3E")}
+.brand-art{position:relative;width:100%;height:100%;overflow:hidden;color:var(--light-brown)}
+.brand-art>.brand-pattern{opacity:.42;inset:-10%;mask-size:cover;-webkit-mask-size:cover}
+.brand-art>.brand-line{opacity:.8;inset:0;mask-size:cover;-webkit-mask-size:cover}
+.page-art>.brand-art{height:100%;width:100%}
+.page-art [data-brand-art="growth"] .brand-pattern{mask-position:35% 50%;-webkit-mask-position:35% 50%}
+.page-art [data-brand-art="specialty"] .brand-pattern{mask-position:70% 40%;-webkit-mask-position:70% 40%}
+.page-art .brand-line{color:var(--light-brown)}
+.hero-down svg{width:19px;height:19px}
+.nav-group summary>svg{width:14px;height:14px;transition:transform .3s}
+.nav-group[open] summary>svg{transform:rotate(45deg)}
+.job-plus{display:grid;place-items:center;width:25px;height:25px;flex-shrink:0}
+.job-plus svg{width:25px;height:25px}
+.footer-bottom a{display:inline-flex;align-items:center;gap:9px}
+.footer-bottom svg{width:14px;height:14px}
+.search-result h3 svg{width:20px;height:20px;flex-shrink:0}
+/* The supplied film fills the hero; all hero content remains real HTML. */
+.home-hero{min-height:calc(100svh - 94px);background:var(--brown);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between}
+.hero-video-wrap{position:absolute;inset:0;z-index:-2;background:var(--brown) url('riyadh-960.webp') center/cover no-repeat;overflow:hidden}
+.hero-video{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-video-shade{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,rgba(80,62,50,.91) 0%,rgba(80,62,50,.7) 37%,rgba(80,62,50,.19) 100%),linear-gradient(0deg,rgba(80,62,50,.65) 0%,rgba(80,62,50,0) 48%)}
+.hero-grid{display:flex;align-items:center;min-height:calc(100svh - 230px);padding-top:55px;padding-bottom:55px}
+.home-hero-copy{width:100%;max-width:1040px;pointer-events:auto}
+.home-hero h1{font-size:clamp(88px,8.7vw,154px);line-height:.97;white-space:normal;color:var(--sand);margin-top:32px;letter-spacing:-.065em}
+.hero-intro{font-size:21px;line-height:1.65;margin-block:30px;max-width:500px}
+.hero-actions{gap:35px}
+.home-hero .text-link{color:var(--paper);border-color:rgba(237,211,188,.38)}
+.home-hero .text-link:hover{color:var(--sand)}
+.hero-bottom{width:calc(100% - var(--gutter)*2);min-height:115px;padding-block:26px;gap:35px;border-color:rgba(237,211,188,.35)}
+.scroll-orbit svg{width:20px;height:20px}
+.hero-location{font-size:9px;line-height:1.9;letter-spacing:.14em;margin-left:auto}
+.hero-video-control{display:inline-flex;align-items:center;gap:9px;color:var(--paper);font-size:10px;line-height:1.5;padding:10px 15px;border:1px solid rgba(237,211,188,.35);border-radius:30px;flex-shrink:0}
+.hero-video-control svg{width:16px;height:16px;flex-shrink:0}
+.hero-video-control:hover{background:rgba(80,62,50,.6);border-color:var(--sand)}
+.hero-video-control[hidden]{display:none}
+/* Print-derived contours reveal with the content, with no generated forms. */
+.story-art{height:310px;margin-block:10px 25px;color:var(--brown)}
+.story-art .brand-pattern{opacity:.22;inset:0}
+.story-art .brand-line{color:var(--light-brown);opacity:.8}
+.strategy-art{height:340px;margin-top:35px;color:var(--brown)}
+.strategy-art .brand-line{color:var(--light-brown)}
+.portrait-composition>.brand-pattern{inset:-20%;opacity:.25;color:var(--light-brown);z-index:-1}
+.floating-portrait{transform:none;box-shadow:none}
+.values-section .section-heading h2{font-size:32px;margin:0;color:var(--brown);line-height:1.2}
+.value-symbol{height:125px;width:155px;position:relative;margin-block:25px;overflow:hidden;color:var(--brown)}
+.value-symbol .brand-pattern{mask-size:210% auto;-webkit-mask-size:210% auto;mask-position:50% 60%;-webkit-mask-position:50% 60%;opacity:.8}
+.symbol-1 .brand-pattern{mask-position:20% 45%;-webkit-mask-position:20% 45%}
+.symbol-2 .brand-pattern{mask-position:75% 75%;-webkit-mask-position:75% 75%}
+.rating-visual>.brand-pattern{left:40%;top:-20%;width:80%;height:140%;opacity:.28;color:var(--light-brown)}
+.contact-cta>.cta-halo{position:absolute;inset:0 0 0 30%;color:var(--light-brown);opacity:.23;z-index:-1}
+.capability-symbol{position:relative;height:120px;width:145px;margin-top:20px;overflow:hidden;color:var(--brown)}
+.capability-symbol .brand-pattern{mask-size:210% auto;-webkit-mask-size:210% auto;mask-position:55% 70%;-webkit-mask-position:55% 70%;opacity:.75}
+.article-rating>.brand-art{position:absolute;right:0;top:0;width:65%;height:100%;color:var(--light-brown)}
+/* Solution previews use source photography and approved line artwork. */
+.explorer-art{border-radius:0;overflow:hidden;background:var(--brown);height:520px}
+.solution-panel{position:absolute;inset:0;opacity:0;transition:opacity .55s ease;overflow:hidden}
+.solution-panel.is-current{opacity:1}
+.solution-panel:after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(0deg,rgba(80,62,50,.85),rgba(80,62,50,0))}
+.solution-panel .photo{height:110%;transform:translateY(-4%)}
+.solution-panel>.brand-pattern{inset:0;opacity:.4;color:var(--light-brown);z-index:1;mask-position:80% 50%;-webkit-mask-position:80% 50%}
+.scene-label{position:absolute;bottom:54px;left:32px;font-size:9px;letter-spacing:.13em;color:var(--sand);z-index:2}
+.explorer-note{color:var(--sand);z-index:2}
+.motion-reduced .hero-video-control{display:none}
+@media(min-width:1700px){.hero-grid{min-height:calc(100svh - 240px);padding-block:70px}.home-hero h1{font-size:154px}}
+@media(max-width:1200px){.hero-intro{font-size:19px}.explorer-art{height:470px}.home-hero h1{font-size:clamp(80px,9.2vw,112px)}}
+@media(max-width:950px){.home-hero{min-height:calc(100svh - 78px)}.hero-grid{min-height:calc(100svh - 200px);padding-block:50px}.home-hero h1{font-size:clamp(70px,10vw,94px)}.hero-intro{font-size:18px}.hero-actions{gap:25px}.hero-location{font-size:8px;letter-spacing:.1em}.hero-bottom{gap:25px;min-height:105px}.story-art{height:280px}.strategy-art{height:300px}.explorer-art{height:440px}.scene-label{left:22px;font-size:8px}.values-section .section-heading h2{font-size:29px}}
+@media(max-width:700px){
+ .home-hero{min-height:calc(100svh - 78px)}
+ .hero-grid{display:flex;min-height:0;flex:1;padding-top:65px;padding-bottom:58px}
+ .home-hero h1{font-size:clamp(61px,14vw,88px);margin-top:26px;line-height:1.01}
+ .hero-intro{font-size:17px;line-height:1.7;max-width:350px;margin-block:26px}
+ .hero-intro br{display:none}
+ .hero-actions{gap:20px;align-items:flex-start}
+ .hero-actions .button{font-size:12px;gap:20px;min-height:52px;padding-left:21px}
+ .hero-actions .button i{width:38px;height:38px}
+ .hero-actions .text-link{font-size:12px;gap:20px;padding-block:13px}
+ .hero-video-shade{background:linear-gradient(90deg,rgba(80,62,50,.86),rgba(80,62,50,.45)),linear-gradient(0deg,rgba(80,62,50,.65),rgba(80,62,50,0) 65%)}
+ .hero-video{object-position:60% center}
+ .hero-bottom{display:grid;grid-template-columns:1fr auto;gap:18px;padding-block:22px;min-height:110px}
+ .scroll-cue{font-size:9px;gap:12px}
+ .hero-location{grid-column:1/-1;grid-row:2;margin:0;font-size:7px;line-height:1.8;letter-spacing:.11em}
+ .hero-location br{display:none}
+ .hero-video-control{grid-column:2;grid-row:1;font-size:9px;padding:8px 11px;gap:7px}
+ .hero-video-control svg{width:14px;height:14px}
+ .story-art{height:290px;margin-top:12px;margin-bottom:24px}
+ .strategy-art{height:260px;margin-top:30px}
+ .values-section .section-heading h2{font-size:28px;margin-top:19px}
+ .value-symbol{grid-column:3;grid-row:1/3;width:70px;height:95px;margin:-5px 0 0}
+ .value-symbol .brand-pattern{mask-size:280% auto;-webkit-mask-size:280% auto}
+ .capability-symbol{position:absolute;right:0;top:24px;height:100px;width:105px;opacity:.65}
+ .contact-cta>.cta-halo{inset:0 0 0 15%;opacity:.18}
+ .explorer-art{height:400px;margin-bottom:25px}
+ .scene-label{bottom:50px;left:22px;font-size:9px}
+ .explorer-note{left:22px;bottom:25px;font-size:10px}
+ .article-rating>.brand-art{right:-40px;width:85%;opacity:.45}
+}
+@media(max-width:380px){
+ .header-actions{gap:4px}
+ .search-open,.menu-toggle{width:36px;height:40px}
+ .menu-toggle span{left:8px}
+ .home-hero h1{font-size:clamp(45px,16.3vw,60px)}
+ .hero-grid{padding-top:48px;padding-bottom:46px}
+ .hero-intro{font-size:15px;margin-block:23px}
+ .hero-actions{gap:16px}
+ .hero-actions .button{font-size:11px;padding-left:18px;gap:17px}
+ .hero-actions .text-link{font-size:11px}
+ .hero-bottom{gap:14px}
+ .hero-video-control{font-size:8px;padding:8px;gap:6px}
+ .hero-video-control svg{width:12px;height:12px}
+ .scroll-cue{font-size:8px;gap:9px}
+ .hero-location{font-size:6px;letter-spacing:.07em}
+ .story-art{height:240px}
+ .explorer-art{height:340px}
+ .value-symbol{width:55px;height:85px}
+}
+@media(max-height:700px) and (min-width:701px){.hero-grid{min-height:480px;padding-block:45px}.home-hero h1{font-size:88px}}
+@media(prefers-reduced-motion:reduce){.solution-panel{transition:none}.hero-video-control{display:none}.brand-pattern,.brand-line{transform:none!important;clip-path:none!important}}
+
+/* Original crisp 2D motion. Brand palette and triangle-to-circle construction. */
+.motion-graphic{display:block;width:100%;height:100%;overflow:visible;stroke:currentColor;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
+.graphic-accent{stroke:var(--light-brown);stroke-width:2}
+.graphic-fill{fill:var(--light-brown);stroke:none}
+.halo-contour{opacity:.75}
+.section-rule{height:1px;background:var(--line);margin-block:0}
+.story-art{height:auto;overflow:visible;margin-block:20px 24px}
+.story-vector{position:relative;max-width:480px;color:var(--brown)}
+.story-svg{height:auto;aspect-ratio:16/9;overflow:hidden;stroke-width:1.25}
+.story-svg path{vector-effect:non-scaling-stroke}
+.story-contour{stroke-opacity:.7}
+.story-trace{stroke:var(--light-brown);stroke-width:1.8}
+.values-section{padding-block:80px 90px}
+.values-section .section-heading{align-items:flex-end;flex-wrap:wrap;gap:20px 50px}
+.values-section .section-heading .eyebrow{flex-basis:100%}
+.values-section .section-heading h2{font-size:clamp(30px,3.4vw,48px)}
+.values-section .section-heading .values-invitation{max-width:240px;font-size:11px;line-height:1.8;margin:0;color:var(--brown);opacity:.8}
+.value-block{transition:border-color .4s ease}
+.value-block:focus-within,.value-block:hover{border-color:var(--brown)}
+.value-motion{display:block;width:100%;height:210px;position:relative;margin-block:12px 27px;color:var(--brown);text-align:left;border-radius:2px;touch-action:manipulation}
+.value-motion:focus-visible{outline:1px solid var(--brown);outline-offset:8px}
+.value-svg{height:calc(100% - 24px)}
+.value-motion-cue{display:flex;gap:12px;align-items:center;font-size:9px;line-height:1.6;letter-spacing:.02em;color:var(--brown);opacity:.65;transition:opacity .3s}
+.value-motion-cue svg{width:16px;height:16px}
+.value-motion:hover .value-motion-cue,.value-motion:focus-visible .value-motion-cue{opacity:1}
+.value-connection,.growth-line,.trust-seal{stroke-width:1.8}
+.trust-core{stroke-width:2}
+.capability-motion{width:100%;height:210px;margin-block:10px 23px;color:var(--brown)}
+.risk-svg{stroke-width:1.6}
+.risk-halo{opacity:.18;stroke:var(--light-brown)}
+.risk-drawing .halo-contour{opacity:.8}
+.risk-marker,.credit-point,.growth-point{stroke:none}
+.capability-grid article{overflow:visible}
+.capability-grid h3{margin-top:0}
+.capability-grid p{min-height:90px}
+.facultative-detail{grid-template-columns:1fr;gap:50px}
+.facultative-detail .solution-body{max-width:900px}
+.facultative-detail .large-copy{max-width:820px}
+.facultative-detail .detail-photo{width:100%;height:clamp(260px,34vw,560px)}
+/* Keep the complete official portrait in a consistent frame; never enlarge a face crop. */
+.person-image,.board-grid .person-image{height:auto;aspect-ratio:1/1.14;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--paper);border:1px solid rgba(80,62,50,.16)}
+.person-image .portrait{width:100%;height:auto;max-width:240px;max-height:100%;aspect-ratio:1/1;object-fit:contain;object-position:center;transform:none!important;border-radius:1px}
+.board-grid .person-image{aspect-ratio:1/1.04;padding:28px;background:#f7eee6}
+.profile-image-button{right:12px;bottom:12px;width:34px;height:34px;border:1px solid rgba(80,62,50,.16)}
+.profile-image-button svg{width:18px}
+.profile-layout>div:first-child{display:flex;align-items:center;justify-content:center;padding:32px;background:var(--sand)}
+.profile-layout .portrait{width:100%;height:auto;max-width:290px;max-height:420px;object-fit:contain;object-position:center}
+.portrait-composition{height:450px}
+.floating-portrait{width:35%;height:auto;padding:10px;background:var(--paper);border:1px solid rgba(80,62,50,.18)}
+.floating-portrait .portrait{width:100%;height:auto;aspect-ratio:1/1.05;max-height:240px;object-fit:contain;object-position:center;background:var(--sand)}
+.floating-portrait figcaption{min-height:70px;padding:13px 4px 4px;font-size:11px;line-height:1.4}
+.floating-portrait small{line-height:1.5;font-size:8px}
+.portrait-0{left:0;top:24%;z-index:2}
+.portrait-1{left:32%;top:2%;z-index:3}
+.portrait-2{right:0;top:39%;z-index:1}
+.teaser-portraits img{height:auto;aspect-ratio:1/1.1;object-fit:contain;padding:9px;background:var(--sand)}
+.footer-main .footer-socials{display:flex;align-items:center;gap:12px;margin-top:22px}
+.footer-main .social-link{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid rgba(237,211,188,.42);border-radius:50%;color:var(--sand);margin:0;transition:background .3s,border-color .3s,transform .3s}
+.footer-main .social-link>svg{display:block;width:17px;height:17px;margin:0;flex:none}
+.social-link>span{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.footer-main .social-link:hover,.footer-main .social-link:focus-visible{background:var(--sand);color:var(--brown);border-color:var(--sand);transform:translateY(-3px)}
+@media(max-width:1100px){.value-motion{height:185px}.capability-motion{height:180px}.person-image,.board-grid .person-image{padding:17px}.portrait-composition{height:390px}.floating-portrait{padding:7px}.floating-portrait figcaption{font-size:10px}}
+@media(max-width:950px){.capability-grid{gap:25px}.capability-motion{height:160px}.capability-grid h3{font-size:25px}.capability-grid p{min-height:110px}.board-grid .person-image{padding:18px}.portrait-composition{height:380px}.floating-portrait figcaption{min-height:75px;font-size:9px}.floating-portrait small{font-size:7px}}
+@media(max-width:700px){
+ .story-vector{max-width:440px;margin-inline:auto}.story-art{margin-block:15px 30px}
+ .values-section{padding-block:55px 40px}.values-section .section-heading{display:block;margin-bottom:30px}
+ .values-section .section-heading h2{font-size:32px;margin-top:20px}.values-section .section-heading .values-invitation{margin-top:18px;max-width:100%;font-size:10px}
+ .value-block{display:grid;grid-template-columns:28px 1fr;column-gap:15px;padding-block:30px}
+ .value-block>span{grid-column:1;grid-row:1}.value-block h3{grid-column:2;grid-row:1;font-size:36px;margin:0}
+ .value-motion{grid-column:2;grid-row:2;height:190px;max-width:300px;margin:17px 0 18px}
+ .value-block p{grid-column:2;grid-row:3;margin:0;max-width:380px;font-size:13px}
+ .value-motion-cue{font-size:9px}.value-svg{height:calc(100% - 24px)}
+ .capability-grid article{min-height:0;padding-top:25px}.capability-motion{height:190px;max-width:330px;margin-block:8px 25px}.capability-grid h3{font-size:32px;max-width:100%}.capability-grid p{min-height:0;max-width:100%}
+ .person-image,.board-grid .person-image{padding:12px;aspect-ratio:1/1.15}.person-card h3,.board-grid .person-card h3{font-size:21px}
+ .profile-image-button{width:28px;height:28px;right:7px;bottom:7px}.profile-image-button svg{width:15px}
+ .portrait-composition{height:370px;max-width:500px;width:100%;margin:45px auto 0}.floating-portrait{padding:6px;width:35%}.floating-portrait figcaption{font-size:10px;min-height:75px}.floating-portrait small{font-size:8px}
+ .teaser-portraits img{height:auto;padding:5px;aspect-ratio:1/1.1}
+ .profile-layout>div:first-child{padding:24px}.profile-layout .portrait{max-width:220px;max-height:260px}
+}
+@media(max-width:380px){
+ .value-block{column-gap:10px;grid-template-columns:20px 1fr}.value-block h3{font-size:30px}.value-motion{height:170px}.values-section .section-heading h2{font-size:28px}
+ .people-grid,.board-grid{grid-template-columns:1fr;gap:35px}.person-image,.board-grid .person-image{max-width:290px;aspect-ratio:1.1/1;padding:20px}.person-image .portrait{max-width:220px}.person-card h3,.board-grid .person-card h3{font-size:25px}
+ .portrait-composition{height:310px}.floating-portrait{width:35%;padding:4px}.floating-portrait figcaption{font-size:8px;min-height:70px;padding:9px 2px}.floating-portrait small{font-size:6px}
+ .capability-motion{height:160px}.capability-grid h3{font-size:29px}
+}
+@media(max-width:700px){
+ .portrait-composition{display:flex;gap:14px;height:auto;overflow-x:auto;max-width:500px;padding:12px 0 20px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--light-brown) var(--sand)}
+ .portrait-composition>.brand-pattern{display:none}
+ .floating-portrait{position:relative;inset:auto;flex:0 0 65%;width:65%;max-width:235px;padding:10px;scroll-snap-align:start;transform:none!important}
+ .floating-portrait .portrait{aspect-ratio:1/1.05;max-height:240px}
+ .floating-portrait figcaption{font-size:12px;min-height:65px;padding:12px 4px 2px}
+ .floating-portrait small{font-size:9px;line-height:1.5}
+}
+@media(prefers-reduced-motion:reduce){.value-block,.value-motion-cue,.social-link{transition:none!important}.motion-graphic *{animation:none!important}.social-link:hover{transform:none!important}}
